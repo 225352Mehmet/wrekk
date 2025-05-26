@@ -186,8 +186,26 @@
     <button class="contact-btn" onclick="window.location.href='mailto:mehmet@example.com'">İletişime Geç</button>
   </div>
 </body>
+  <audio id="bg-music" src="pempe.mp3" autoplay loop></audio>
+<button id="music-btn" onclick="toggleMusic()" style="position: fixed; top: 20px; right: 20px; z-index: 10; padding: 10px 20px; background:#4f88ff; color:#fff; border:none; border-radius:8px; cursor:pointer;">
+  Müziği Kapat
+</button>
+
+<script>
+  const music = document.getElementById('bg-music');
+  const btn = document.getElementById('music-btn');
+
+  function toggleMusic() {
+    if (music.paused) {
+      music.play();
+      btn.textContent = 'Müziği Kapat';
+    } else {
+      music.pause();
+      btn.textContent = 'Müziği Aç';
+    }
+  }
+</script>
+
 </html>
-git add index.html
-git commit -m "Add homepage"
-git push origin main
+
 
