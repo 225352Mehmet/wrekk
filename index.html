@@ -1,104 +1,67 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Şarkı Butonları</title>
   <style>
     body {
-      background: #1e1e2f;
-      font-family: 'Poppins', sans-serif;
+      font-family: sans-serif;
+      background: #121212;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 50px;
+      text-align: center;
+      padding: 40px;
     }
-
-    h1 {
-      margin-bottom: 30px;
-    }
-
-    .button-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 900px;
-    }
-
     .song-button {
-      background: linear-gradient(135deg, #4f88ff, #2a5298);
-      border: none;
-      color: white;
-      padding: 15px 25px;
-      font-size: 1rem;
-      border-radius: 12px;
+      background: #1f1f1f;
+      color: #fff;
+      border: 2px solid #4f88ff;
+      border-radius: 10px;
+      padding: 15px 30px;
+      margin: 10px;
       cursor: pointer;
+      font-size: 16px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(79, 136, 255, 0.4);
+      display: inline-block;
     }
-
     .song-button:hover {
+      background-color: #4f88ff;
+      color: #000;
       transform: scale(1.05);
-      background: linear-gradient(135deg, #5fa8ff, #3a63b8);
-      box-shadow: 0 0 15px rgba(79, 136, 255, 0.6);
     }
   </style>
 </head>
 <body>
 
-<h1>Şarkı Seç</h1>
-<div class="button-grid">
-  <!-- 15 buton -->
-  <button class="song-button" onclick="playSong(1)">Şarkı2</button>
-  <button class="song-button" onclick="playSong(2)">Şarkı 2</button>
-  <button class="song-button" onclick="playSong(3)">Şarkı 3</button>
-  <button class="song-button" onclick="playSong(4)">Şarkı 4</button>
-  <button class="song-button" onclick="playSong(5)">Şarkı 5</button>
-  <button class="song-button" onclick="playSong(6)">Şarkı 6</button>
-  <button class="song-button" onclick="playSong(7)">Şarkı 7</button>
-  <button class="song-button" onclick="playSong(8)">Şarkı 8</button>
-  <button class="song-button" onclick="playSong(9)">Şarkı 9</button>
-  <button class="song-button" onclick="playSong(10)">Şarkı 10</button>
-  <button class="song-button" onclick="playSong(11)">Şarkı 11</button>
-  <button class="song-button" onclick="playSong(12)">Şarkı 12</button>
-  <button class="song-button" onclick="playSong(13)">Şarkı 13</button>
-  <button class="song-button" onclick="playSong(14)">Şarkı 14</button>
-  <button class="song-button" onclick="playSong(15)">Şrkı 15</button>
-</div>
+  <h1>Şarkı Listesi</h1>
 
-<audio id="audioPlayer" controls style="margin-top: 40px; display: none;"></audio>
+  <div id="buttons-container">
+    <button class="song-button" onclick="playSong('acıkacık.opus')">acıkacık</button>
+    <button class="song-button" onclick="playSong('cokkomik.mp3')">cokkomik</button>
+    <button class="song-button" onclick="playSong('dagdevirmek.unknown')">dagdevirmek</button>
+    <button class="song-button" onclick="playSong('duryemlaha.opus')">duryemlaha</button>
+    <button class="song-button" onclick="playSong('geberecek.opus')">geberecek</button>
+    <button class="song-button" onclick="playSong('gelingörün.unknown')">gelingörün</button>
+    <button class="song-button" onclick="playSong('icipicip.opus')">icipicip</button>
+    <button class="song-button" onclick="playSong('memetseni.opus')">memetseni</button>
+    <button class="song-button" onclick="playSong('nediyor.mp3')">nediyor</button>
+    <button class="song-button" onclick="playSong('sabaholmus.mp3')">sabaholmus</button>
+    <button class="song-button" onclick="playSong('sizneveriyonuz.opus')">sizneveriyonuz</button>
+    <button class="song-button" onclick="playSong('telefonac.opus')">telefonac</button>
+    <button class="song-button" onclick="playSong('topunuza.unknown')">topunuza</button>
+    <button class="song-button" onclick="playSong('ulanoglum.opus')">ulanoglum</button>
+    <button class="song-button" onclick="playSong('vayhayvan.opus')">vayhayvan</button>
+    <button class="song-button" onclick="playSong('ögreten.opus')">ögreten</button>
+  </div>
 
-<script>
-  const songs = {
-    1: "https://example.com/song1.mp3",
-    2: "https://example.com/song2.mp3",
-    3: "https://example.com/song3.mp3",
-    4: "https://example.com/song4.mp3",
-    5: "https://example.com/song5.mp3",
-    6: "https://example.com/song6.mp3",
-    7: "https://example.com/song7.mp3",
-    8: "https://example.com/song8.mp3",
-    9: "https://example.com/song9.mp3",
-    10: "https://example.com/song10.mp3",
-    11: "https://example.com/song11.mp3",
-    12: "https://example.com/song12.mp3",
-    13: "https://example.com/song13.mp3",
-    14: "https://example.com/song14.mp3",
-    15: "https://example.com/song15.mp3",
-  };
+  <audio id="audio-player" controls style="margin-top:30px;"></audio>
 
-  const audio = document.getElementById("audioPlayer");
-
-  function playSong(id) {
-    if (songs[id]) {
-      audio.src = songs[id];
-      audio.play();
-      audio.style.display = "block";
+  <script>
+    function playSong(filename) {
+      const player = document.getElementById('audio-player');
+      player.src = `muziklerim/${filename}`;
+      player.play();
     }
-  }
-</script>
+  </script>
 
 </body>
 </html>
