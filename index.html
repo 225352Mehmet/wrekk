@@ -2,243 +2,103 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mehmet Koç - Web Tasarımcısı</title>
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K79HSVBGRC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-K79HSVBGRC');
-  </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Şarkı Butonları</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
+      background: #1e1e2f;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
       color: #fff;
-      min-height: 100vh;
-      overflow-x: hidden;
-      animation: fadeIn 1s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .background {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .wave {
-      position: absolute;
-      bottom: 0;
-      width: 200%;
-      height: 200px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 43%;
-      animation: waveAnim 8s infinite linear;
-    }
-
-    .wave:nth-child(1) {
-      left: -50%;
-      animation-delay: 0s;
-      opacity: 0.6;
-    }
-
-    .wave:nth-child(2) {
-      left: -60%;
-      bottom: 10px;
-      animation-delay: 4s;
-      opacity: 0.4;
-    }
-
-    @keyframes waveAnim {
-      0% { transform: translateX(0) translateY(0); }
-      50% { transform: translateX(25%) translateY(10px); }
-      100% { transform: translateX(50%) translateY(0); }
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 20px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
     }
 
     h1 {
-      font-weight: 600;
-      font-size: 3rem;
-      margin-bottom: 10px;
-      opacity: 0;
-      transform: translateY(-30px);
-      animation: fadeSlideIn 1s forwards 0.5s;
-    }
-
-    h2 {
-      font-weight: 300;
-      font-size: 1.5rem;
-      margin-bottom: 40px;
-      color: #a9c0ff;
-      opacity: 0;
-      transform: translateY(-30px);
-      animation: fadeSlideIn 1s forwards 1s;
-    }
-
-    p {
-      font-weight: 300;
-      font-size: 1.1rem;
-      line-height: 1.6;
       margin-bottom: 30px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeSlideIn 1s forwards 1.5s;
     }
 
-    .projects {
-      margin-top: 50px;
-      display: flex;
-      justify-content: center;
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
-      flex-wrap: wrap;
+      width: 100%;
+      max-width: 900px;
     }
 
-    .project-card {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      padding: 20px;
-      width: 250px;
-      cursor: pointer;
-      color: #fff;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      animation: fadeSlideIn 1s forwards 2s;
-    }
-
-    .project-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #4f88ff;
-    }
-
-    .project-card h3 {
-      margin-bottom: 10px;
-    }
-
-    .contact-btn {
-      margin-top: 80px;
-      background: #4f88ff;
-      color: white;
+    .song-button {
+      background: linear-gradient(135deg, #4f88ff, #2a5298);
       border: none;
-      padding: 15px 40px;
-      border-radius: 50px;
-      font-size: 1.2rem;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1rem;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.3s ease;
-      opacity: 0;
-      animation: fadeSlideIn 1s forwards 2.5s;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(79, 136, 255, 0.4);
     }
 
-    .contact-btn:hover {
-      background: #3461c1;
-    }
-
-    @keyframes fadeSlideIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .song-button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #5fa8ff, #3a63b8);
+      box-shadow: 0 0 15px rgba(79, 136, 255, 0.6);
     }
   </style>
 </head>
 <body>
-  <div class="background">
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
 
-  <div class="container">
-    <h1>Mehmet Koç</h1>
-    <h2>2008'den beri Web Tasarımcısı</h2>
-    <p>
-      Web sitesi tasarımı ile uğraşıyorum. Python, JavaScript, CSS gibi teknolojilerle modern ve kullanıcı dostu arayüzler geliştiriyorum.
-      Yaratıcı çözümlerle projelerimi her zaman bir adım öteye taşıyorum.  
-      Sürekli öğrenmek ve kendimi geliştirmek benim için vazgeçilmez bir tutku!
-    </p>
+<h1>Şarkı Seç</h1>
+<div class="button-grid">
+  <!-- 15 buton -->
+  <button class="song-button" onclick="playSong(1)">Şarkı 1</button>
+  <button class="song-button" onclick="playSong(2)">Şarkı 2</button>
+  <button class="song-button" onclick="playSong(3)">Şarkı 3</button>
+  <button class="song-button" onclick="playSong(4)">Şarkı 4</button>
+  <button class="song-button" onclick="playSong(5)">Şarkı 5</button>
+  <button class="song-button" onclick="playSong(6)">Şarkı 6</button>
+  <button class="song-button" onclick="playSong(7)">Şarkı 7</button>
+  <button class="song-button" onclick="playSong(8)">Şarkı 8</button>
+  <button class="song-button" onclick="playSong(9)">Şarkı 9</button>
+  <button class="song-button" onclick="playSong(10)">Şarkı 10</button>
+  <button class="song-button" onclick="playSong(11)">Şarkı 11</button>
+  <button class="song-button" onclick="playSong(12)">Şarkı 12</button>
+  <button class="song-button" onclick="playSong(13)">Şarkı 13</button>
+  <button class="song-button" onclick="playSong(14)">Şarkı 14</button>
+  <button class="song-button" onclick="playSong(15)">Şarkı 15</button>
+</div>
 
-    <div class="projects">
-      <div class="project-card">
-        <h3>Portföy Sitesi</h3>
-        <p>Özgün tasarım, responsive, modern teknoloji kullanımı.</p>
-      </div>
-      <div class="project-card">
-        <h3>Blog Platformu</h3>
-        <p>JavaScript ve Python tabanlı dinamik içerik sistemi.</p>
-      </div>
-      <div class="project-card">
-        <h3>Admin Panel</h3>
-        <p>Kullanıcı dostu arayüz ve güçlü yönetim araçları.</p>
-      </div>
-    </div>
+<audio id="audioPlayer" controls style="margin-top: 40px; display: none;"></audio>
 
-    <!-- İletişim Butonu -->
-    <a href="chat.html" target="_blank" class="contact-btn">İletişime Geç</a>
-  </div>
-<h2 style="margin-top: 60px;">İletişim Formu</h2>
-<form action="https://formsubmit.co/mkoc78510@gmail.com" method="POST" style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; text-align: left;">
-  
-  <input type="text" name="isim" placeholder="Adınız" required style="padding: 10px; border-radius: 5px; border: none;">
-  
-  <input type="email" name="email" placeholder="E-posta adresiniz" required style="padding: 10px; border-radius: 5px; border: none;">
-  
-  <textarea name="mesaj" placeholder="Mesajınız" required style="padding: 10px; border-radius: 5px; border: none; height: 120px;"></textarea>
+<script>
+  const songs = {
+    1: "https://example.com/song1.mp3",
+    2: "https://example.com/song2.mp3",
+    3: "https://example.com/song3.mp3",
+    4: "https://example.com/song4.mp3",
+    5: "https://example.com/song5.mp3",
+    6: "https://example.com/song6.mp3",
+    7: "https://example.com/song7.mp3",
+    8: "https://example.com/song8.mp3",
+    9: "https://example.com/song9.mp3",
+    10: "https://example.com/song10.mp3",
+    11: "https://example.com/song11.mp3",
+    12: "https://example.com/song12.mp3",
+    13: "https://example.com/song13.mp3",
+    14: "https://example.com/song14.mp3",
+    15: "https://example.com/song15.mp3",
+  };
 
-  <!-- Gereksiz captcha’yı kapatır -->
-  <input type="hidden" name="_captcha" value="false">
-  
-  <!-- Gönderildikten sonra yönlendirme -->
-  <input type="hidden" name="_next" value="https://225352mehmet.github.io/wrekk/tesekkurler.html">
+  const audio = document.getElementById("audioPlayer");
 
-  <button type="submit" style="padding: 12px; border-radius: 5px; border: none; background: #4f88ff; color: white; font-size: 1rem; cursor: pointer;">
-    Gönder
-  </button>
-</form>
-
-  <!-- Müzik -->
-  <audio id="bg-music" src="https://raw.githubusercontent.com/225352Mehmet/wrekk/main/pempe.mp3" autoplay loop></audio>
-  <button id="music-btn" onclick="toggleMusic()" style="position: fixed; top: 20px; right: 20px; z-index: 10; padding: 10px 20px; background:#4f88ff; color:#fff; border:none; border-radius:8px; cursor:pointer;">
-    Müziği Kapat
-  </button>
-
-  <script>
-    const music = document.getElementById('bg-music');
-    const btn = document.getElementById('music-btn');
-
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        btn.textContent = 'Müziği Kapat';
-      } else {
-        music.pause();
-        btn.textContent = 'Müziği Aç';
-      }
+  function playSong(id) {
+    if (songs[id]) {
+      audio.src = songs[id];
+      audio.play();
+      audio.style.display = "block";
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
