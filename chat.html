@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>İletişim Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #eee;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #4f88ff;
+      text-align: center;
+    }
+    #chat-box {
+      border: 1px solid #4f88ff;
+      background: #222;
+      height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+    #chat-box p {
+      margin: 5px 0;
+    }
+    #message-form input, #message-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 1em;
+    }
+    #message-form button {
+      background: #4f88ff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>İletişime Geç - Chat</h1>
+
+  <div id="chat-box"></div>
+
+  <form id="message-form">
+    <input type="text" id="name" placeholder="İsminiz" required />
+    <input type="email" id="email" placeholder="E-posta adresiniz" required />
+    <textarea id="message" placeholder="Mesajınız" rows="4" required></textarea>
+    <button type="submit">Gönder</button>
+  </form>
+
+  <script>
+    const chatBox = document.getElementById('chat-box');
+    const form = document.getElementById('message-form');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) return;
+
+      const newMsg = document.createElement('p');
+      newMsg.innerHTML = `<strong>${name}</strong> (<a href="mailto:${email}" style="color:#4f88ff;">${email}</a>):<br>${message}`;
+      chatBox.appendChild(newMsg);
+
+      // Mesaj gönderildikten sonra formu temizle
+      form.reset();
+
+      // Chat kutusunu en alta kaydır
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+  </script>
+
+</body>
+</html>
