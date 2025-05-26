@@ -1,342 +1,143 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mehmet Koç - Web Tasarımcısı</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
-      min-height: 100vh;
-      overflow-x: hidden;
-      animation: fadeIn 1s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .background {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .wave {
-      position: absolute;
-      bottom: 0;
-      width: 200%;
-      height: 200px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 43%;
-      animation: waveAnim 8s infinite linear;
-    }
-
-    .wave:nth-child(1) {
-      left: -50%;
-      animation-delay: 0s;
-      opacity: 0.6;
-    }
-
-    .wave:nth-child(2) {
-      left: -60%;
-      bottom: 10px;
-      animation-delay: 4s;
-      opacity: 0.4;
-    }
-
-    @keyframes waveAnim {
-      0% { transform: translateX(0) translateY(0); }
-      50% { transform: translateX(25%) translateY(10px); }
-      100% { transform: translateX(50%) translateY(0); }
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    h1 {
-      font-weight: 600;
-      font-size: 3rem;
-      margin-bottom: 10px;
-      opacity: 0;
-      transform: translateY(-30px);
-      animation: fadeSlideIn 1s forwards 0.5s;
-    }
-
-    h2 {
-      font-weight: 300;
-      font-size: 1.5rem;
-      margin-bottom: 40px;
-      color: #a9c0ff;
-      opacity: 0;
-      transform: translateY(-30px);
-      animation: fadeSlideIn 1s forwards 1s;
-    }
-
-    p {
-      font-weight: 300;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 30px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeSlideIn 1s forwards 1.5s;
-    }
-
-    .projects {
-      margin-top: 50px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .project-card {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      padding: 20px;
-      width: 250px;
-      cursor: pointer;
-      color: #fff;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      animation: fadeSlideIn 1s forwards 2s;
-    }
-
-    .project-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #4f88ff;
-    }
-
-    .project-card h3 {
-      margin-bottom: 10px;
-    }
-
-    .contact-btn {
-      margin-top: 40px;
-      background: #4f88ff;
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      opacity: 0;
-      animation: fadeSlideIn 1s forwards 2.5s;
-      display: inline-block;
-      text-decoration: none;
-    }
-
-    .contact-btn:hover {
-      background: #3461c1;
-    }
-
-    form {
-      margin-top: 40px;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      color: #fff;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeSlideIn 1s forwards 3s;
-      text-align: left;
-    }
-
-    form label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    form input, form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
-    form button {
-      background: #4f88ff;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    form button:hover {
-      background: #3461c1;
-    }
-
-    @keyframes fadeSlideIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mehmet Koç - İletişim Formu</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    text-align: center;
+    padding: 30px;
+  }
+  form {
+    margin: 20px auto;
+    max-width: 400px;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 8px;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+  }
+  button {
+    padding: 10px 25px;
+    font-size: 1.1rem;
+    background: #4f88ff;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #3461c1;
+  }
+  #status {
+    margin-top: 15px;
+  }
+  #music-btn {
+    position: fixed;
+    top: 20px; right: 20px;
+    padding: 10px 20px;
+    background:#4f88ff; color:#fff;
+    border:none; border-radius:8px;
+    cursor:pointer;
+    z-index: 1000;
+  }
+</style>
 </head>
 <body>
-  <div class="background">
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
 
-  <div class="container">
-    <h1>Mehmet Koç</h1>
-    <h2>2008'den beri Web Tasarımcısı</h2>
-    <p>
-      Web sitesi tasarımı ile uğraşıyorum. Python, JavaScript, CSS gibi teknolojilerle modern ve kullanıcı dostu arayüzler geliştiriyorum.
-      Yaratıcı çözümlerle projelerimi her zaman bir adım öteye taşıyorum.  
-      Sürekli öğrenmek ve kendimi geliştirmek benim için vazgeçilmez bir tutku!
-    </p>
+<h1>Mehmet Koç İletişim</h1>
 
-    <div class="projects">
-      <div class="project-card">
-        <h3>Portföy Sitesi</h3>
-        <p>Özgün tasarım, responsive, modern teknoloji kullanımı.</p>
-      </div>
-      <div class="project-card">
-        <h3>Blog Platformu</h3>
-        <p>JavaScript ve Python tabanlı dinamik içerik sistemi.</p>
-      </div>
-      <div class="project-card">
-        <h3>Admin Panel</h3>
-        <p>Kullanıcı dostu arayüz ve güçlü yönetim araçları.</p>
-      </div>
-    </div>
+<form id="contact-form">
+  <input type="text" id="name" placeholder="Adınız" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <textarea id="message" placeholder="Mesajınız" rows="5" required></textarea>
+  <button type="submit">Gönder</button>
+</form>
 
-    <a href="#contact-form" class="contact-btn">İletişime Geç</a>
+<div id="status"></div>
 
-    <!-- İletişim Formu -->
-    <form id="contact-form">
-      <h3>İletişim Formu</h3>
-      <label for="name">Adınız:</label>
-      <input type="text" id="name" name="name" required />
-      <label for="email">E-posta:</label>
-      <input type="email" id="email" name="email" required />
-      <label for="message">Mesajınız:</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-      <button type="submit">Gönder</button>
-      <p id="form-status" style="margin-top:10px;"></p>
-    </form>
-  </div>
+<audio id="bg-music" src="https://raw.githubusercontent.com/225352Mehmet/wrekk/main/pempe.mp3" autoplay loop></audio>
+<button id="music-btn">Müziği Kapat</button>
 
-  <!-- Müzik -->
-  <audio id="bg-music" src="https://raw.githubusercontent.com/225352Mehmet/wrekk/main/pempe.mp3" autoplay loop></audio>
-  <button id="music-btn" onclick="toggleMusic()" style="position: fixed; top: 20px; right: 20px; z-index: 10; padding: 10px 20px; background:#4f88ff; color:#fff; border:none; border-radius:8px; cursor:pointer;">
-    Müziği Kapat
-  </button>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script>
+  // Firebase konfigürasyonunu kendi Firebase projenle değiştir
+  const firebaseConfig = {
+    apiKey: "AIzaSyAIis1m_MvjAtTTOnZKEo7__ElwNsoV8-A",
+    authDomain: "wreekco.firebaseapp.com",
+    databaseURL: "https://wreekco-default-rtdb.firebaseio.com",
+    projectId: "wreekco",
+    storageBucket: "wreekco.appspot.com",
+    messagingSenderId: "255054069808",
+    appId: "1:255054069808:web:25b9955cf8cce2bfc16df5",
+  };
 
-  <script>
-    // Firebase yapılandırmanı buraya yapıştır
-   // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  // Firebase başlat
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAIis1m_MvjAtTTOnZKEo7__ElwNsoV8-A",
-  authDomain: "wreekco.firebaseapp.com",
-  projectId: "wreekco",
-  storageBucket: "wreekco.firebasestorage.app",
-  messagingSenderId: "255054069808",
-  appId: "1:255054069808:web:25b9955cf8cce2bfc16df5",
-  measurementId: "G-YTS3HJG5QX"
-};
+  const form = document.getElementById('contact-form');
+  const statusDiv = document.getElementById('status');
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-    };
+  form.addEventListener('submit', e => {
+    e.preventDefault();
 
-    // Firebase başlat
-    firebase.initializeApp(firebaseConfig);
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
 
-    const database = firebase.database();
-
-    // Müzik kontrol
-    const music = document.getElementById('bg-music');
-    const btn = document.getElementById('music-btn');
-
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        btn.textContent = 'Müziği Kapat';
-      } else {
-        music.pause();
-        btn.textContent = 'Müziği Aç';
-      }
+    if (!name || !email || !message) {
+      statusDiv.textContent = 'Lütfen tüm alanları doldurun.';
+      return;
     }
 
-    // Form gönderim işlemi
-    const form = document.getElementById('contact-form');
-    const status = document.getElementById('form-status');
+    const data = {
+      name,
+      email,
+      message,
+      timestamp: new Date().toISOString()
+    };
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
-
-      if (!name || !email || !message) {
-        status.textContent = "Lütfen tüm alanları doldurun.";
-        status.style.color = "red";
-        return;
-      }
-
-      // Veriyi Firebase'e kaydet
-      const newMessageRef = database.ref('messages').push();
-      newMessageRef.set({
-        name: name,
-        email: email,
-        message: message,
-        timestamp: Date.now()
-      }).then(() => {
-        status.textContent = "Mesajınız başarıyla gönderildi!";
-        status.style.color = "lightgreen";
+    // Veriyi Firebase'e gönder
+    db.ref('messages').push(data)
+      .then(() => {
+        statusDiv.style.color = 'lightgreen';
+        statusDiv.textContent = 'Mesajınız gönderildi, teşekkürler!';
         form.reset();
-      }).catch((error) => {
-        status.textContent = "Hata oluştu: " + error.message;
-        status.style.color = "red";
+      })
+      .catch(err => {
+        statusDiv.style.color = 'red';
+        statusDiv.textContent = 'Hata oluştu: ' + err.message;
       });
-    });
-  </script>
+  });
+
+  // Müzik aç/kapat
+  const music = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-btn');
+
+  musicBtn.addEventListener('click', () => {
+    if (music.paused) {
+      music.play();
+      musicBtn.textContent = 'Müziği Kapat';
+    } else {
+      music.pause();
+      musicBtn.textContent = 'Müziği Aç';
+    }
+  });
+</script>
+
 </body>
 </html>
