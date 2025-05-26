@@ -200,6 +200,25 @@
     <!-- İletişim Butonu -->
     <a href="chat.html" target="_blank" class="contact-btn">İletişime Geç</a>
   </div>
+<h2 style="margin-top: 60px;">İletişim Formu</h2>
+<form action="https://formsubmit.co/mkoc78510@gmail.com" method="POST" style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; text-align: left;">
+  
+  <input type="text" name="isim" placeholder="Adınız" required style="padding: 10px; border-radius: 5px; border: none;">
+  
+  <input type="email" name="email" placeholder="E-posta adresiniz" required style="padding: 10px; border-radius: 5px; border: none;">
+  
+  <textarea name="mesaj" placeholder="Mesajınız" required style="padding: 10px; border-radius: 5px; border: none; height: 120px;"></textarea>
+
+  <!-- Gereksiz captcha’yı kapatır -->
+  <input type="hidden" name="_captcha" value="false">
+  
+  <!-- Gönderildikten sonra yönlendirme -->
+  <input type="hidden" name="_next" value="https://225352mehmet.github.io/wrekk/tesekkurler.html">
+
+  <button type="submit" style="padding: 12px; border-radius: 5px; border: none; background: #4f88ff; color: white; font-size: 1rem; cursor: pointer;">
+    Gönder
+  </button>
+</form>
 
   <!-- Müzik -->
   <audio id="bg-music" src="https://raw.githubusercontent.com/225352Mehmet/wrekk/main/pempe.mp3" autoplay loop></audio>
