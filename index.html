@@ -1,87 +1,135 @@
-<!DOCTYPE html>
+v<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anonim Mesaj Gönder</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
   body {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    max-width: 400px;
-    margin: auto;
+    color: #fff;
   }
-  h2 {
+
+  .container {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    max-width: 420px;
+    width: 100%;
+    padding: 40px 30px;
+    box-sizing: border-box;
     text-align: center;
-    color: #333;
   }
+
+  h2 {
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
   form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
   }
+
   label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #555;
-  }
-  input[type="text"], textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 8px;
     font-size: 14px;
+    color: #e0e0e0;
+    user-select: none;
   }
-  button {
-    margin-top: 20px;
-    width: 100%;
-    background: #007bff;
-    color: white;
-    font-size: 16px;
-    padding: 12px;
+
+  input[type="text"],
+  textarea {
+    padding: 12px 15px;
+    border-radius: 12px;
     border: none;
-    border-radius: 4px;
+    outline: none;
+    font-size: 15px;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    margin-bottom: 20px;
+    transition: background 0.3s ease;
+    resize: vertical;
+  }
+  input[type="text"]::placeholder,
+  textarea::placeholder {
+    color: #d1c4e9aa;
+  }
+  input[type="text"]:focus,
+  textarea:focus {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  button {
+    background: #6c63ff;
+    border: none;
+    padding: 14px 0;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 15px;
     cursor: pointer;
+    color: white;
+    box-shadow: 0 6px 12px rgba(108, 99, 255, 0.45);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
   }
   button:hover {
-    background: #0056b3;
+    background: #574dcf;
+    box-shadow: 0 8px 20px rgba(87, 77, 207, 0.65);
   }
+
   .privacy-note {
-    margin-top: 10px;
     font-size: 12px;
-    color: #888;
-    text-align: center;
+    color: #c9c3f4cc;
+    margin-top: -15px;
+    margin-bottom: 25px;
+    user-select: none;
   }
+
   .thank-you {
-    text-align: center;
-    color: green;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 600;
+    color: #b5f4a5;
+    user-select: none;
   }
 </style>
 </head>
 <body>
 
-<h2>Anonim Mesaj Gönder</h2>
+<div class="container">
+  <h2>Anonim Mesaj Gönder</h2>
 
-<form id="anonimForm" action="https://formsubmit.co/mkoc78510@gmail.com" method="POST">
-  <input type="hidden" name="_captcha" value="false" />
-  <label for="name">İsim (isteğe bağlı)</label>
-  <input type="text" id="name" name="name" placeholder="İsminiz (gizli kalacak)" />
-  
-  <label for="message">Mesajınız <span style="color:red">*</span></label>
-  <textarea id="message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın"></textarea>
-  
-  <button type="submit">Gönder</button>
-</form>
+  <form id="anonimForm" action="https://formsubmit.co/mkoc78510@gmail.com" method="POST" autocomplete="off">
+    <input type="hidden" name="_captcha" value="false" />
+    
+    <label for="name">İsim (isteğe bağlı)</label>
+    <input type="text" id="name" name="name" placeholder="İsminiz (gizli kalacak)" />
 
-<p class="privacy-note">İsimler gizli tutulur ve kimseyle paylaşılmaz.</p>
+    <label for="message">Mesajınız <span style="color:#ff6f61">*</span></label>
+    <textarea id="message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın"></textarea>
 
-<p id="thankYouMsg" class="thank-you" style="display:none;">Mesajınız başarıyla gönderildi, teşekkürler!</p>
+    <button type="submit">Gönder</button>
+  </form>
+
+  <p class="privacy-note">İsimler gizli tutulur ve kimseyle paylaşılmaz.</p>
+
+  <p id="thankYouMsg" class="thank-you" style="display:none;">Mesajınız başarıyla gönderildi, teşekkürler!</p>
+</div>
 
 <script>
   const form = document.getElementById('anonimForm');
