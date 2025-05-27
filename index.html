@@ -9,17 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&family=Roboto&display=swap" rel="stylesheet" />
 
 <style>
-  /* Genel ayarlar */
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
     color: #222;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     text-align: center;
     padding: 20px;
@@ -29,9 +27,31 @@
   h1 {
     font-family: 'Pacifico', cursive;
     font-size: 3.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     color: #2c3e50;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .button-container {
+    margin: 20px 0 30px 0;
+  }
+
+  button {
+    font-family: 'Montserrat', sans-serif;
+    background: #2980b9;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    margin: 0 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #3498db;
   }
 
   .countdown {
@@ -103,12 +123,22 @@
       max-width: 90vw;
       padding: 20px;
     }
+    button {
+      font-size: 1rem;
+      padding: 10px 20px;
+      margin: 0 5px;
+    }
   }
 </style>
 </head>
 <body>
 
-  <h1>Ehliyet Geri Sayımı</h1>
+  <h1 id="title">Ehliyet Geri Sayımı</h1>
+
+  <div class="button-container">
+    <button id="mainBtn">Benim Tarihim</button>
+    <button id="habipBtn">Habip Ehliyet</button>
+  </div>
 
   <div class="countdown" id="countdown">
     <div class="time-segment">
@@ -133,7 +163,7 @@
     “Her gün yeni bir başlangıçtır. Sabret, başaracaksın.” 
   </div>
 
-  <div class="footer">Doğum Tarihin: 3 Ocak 2009</div>
+  <div class="footer" id="footerText">Doğum Tarihin: 3 Ocak 2009</div>
 
 <script>
   const quotes = [
@@ -154,40 +184,78 @@
     "Düşlerin peşinden git, asla vazgeçme."
   ];
 
-  const birthday = new Date(2027, 0, 3, 0, 0, 0); // 3 Ocak 2027
+  const mainBirthday = new Date(2009, 0, 3);  // 3 Ocak 2009
+  const mainLicenseDate = new Date(2027, 0, 3);  // 3 Ocak 2027
+
+  const habipBirthday = new Date(2010, 2, 10);  // 10 Mart 2010
+  const habipLicenseDate = new Date(2028, 2, 10);  // 10 Mart 2028
+
+  let currentMode = 'main';
+
+  const titleEl = document.getElementById('title');
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+  const quoteEl = document.getElementById('quote');
+  const footerText = document.getElementById('footerText');
+
+  const mainBtn = document.getElementById('mainBtn');
+  const habipBtn = document.getElementById('habipBtn');
 
   function updateCountdown() {
     const now = new Date();
-    const diff = birthday - now;
 
-    if (diff <= 0) {
-      document.getElementById("countdown").innerHTML = `
-        <h2 style="color:#27ae60;">🎉 Ehliyet Alma Yaşına Geldin! 🎉</h2>
-        <p style="font-size:1.2rem; color:#2c3e50;">Artık ehliyet başvurusu yapabilirsin.</p>
-      `;
-      document.getElementById("quote").innerText = "Hayallerinin peşinden git, artık hazırsın!";
+    let licenseDate;
+    if(currentMode === 'main'){
+      licenseDate = mainLicenseDate;
+      titleEl.innerText = "Ehliyet Geri Sayımı";
+      footerText.innerText = "Doğum Tarihin: 3 Ocak 2009";
+    } else {
+      licenseDate = habipLicenseDate;
+      titleEl.innerText = "Habip Ehliyet Geri Sayımı";
+      footerText.innerText = "Doğum Tarihin: 10 Mart 2010";
+    }
+
+    let diff = licenseDate - now;
+
+    if(diff <= 0){
+      daysEl.innerText = "0";
+      hoursEl.innerText = "00";
+      minutesEl.innerText = "00";
+      secondsEl.innerText = "00";
+      quoteEl.innerText = "🎉 Ehliyet alma yaşına geldin! Tebrikler! 🎉";
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    let minutes = Math.floor((diff / (1000 * 60)) % 60);
+    let seconds = Math.floor((diff / 1000) % 60);
 
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = hours.toString().padStart(2,"0");
-    document.getElementById("minutes").innerText = minutes.toString().padStart(2,"0");
-    document.getElementById("seconds").innerText = seconds.toString().padStart(2,"0");
+    daysEl.innerText = days;
+    hoursEl.innerText = hours.toString().padStart(2, '0');
+    minutesEl.innerText = minutes.toString().padStart(2, '0');
+    secondsEl.innerText = seconds.toString().padStart(2, '0');
 
-    // Gün bazlı motivasyon sözü seç
-    const startDate = new Date(2024, 4, 28); // Bugün gibi bir başlangıç tarihi (bugünden önceki tarih)
-    const dayCount = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
-    const quoteIndex = dayCount % quotes.length;
-    document.getElementById("quote").innerText = "“" + quotes[quoteIndex] + "”";
+    // Her gün için farklı güzel sözler sırayla gelsin
+    const quoteIndex = days % quotes.length;
+    quoteEl.innerText = quotes[quoteIndex];
   }
 
-  setInterval(updateCountdown, 1000);
+  mainBtn.addEventListener('click', () => {
+    currentMode = 'main';
+    updateCountdown();
+  });
+
+  habipBtn.addEventListener('click', () => {
+    currentMode = 'habip';
+    updateCountdown();
+  });
+
+  // İlk yüklemede başlat
   updateCountdown();
+  setInterval(updateCountdown, 1000);
 </script>
 
 </body>
