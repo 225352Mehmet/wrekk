@@ -14,19 +14,35 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      /* Arka plan resmi eklendi */
+      background: url('aile2.png') no-repeat center center fixed;
+      background-size: cover;
       color: #f0f0f0;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       overflow-x: hidden;
+      /* Üstüne koymak için yarı saydam katman */
+      position: relative;
+    }
+
+    /* Üst katman: koyu filtre */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: -1;
     }
 
     header {
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.5);
       padding: 25px 20px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+      backdrop-filter: saturate(180%) blur(5px);
+      border-radius: 0 0 15px 15px;
+      margin-bottom: 30px;
     }
 
     header h1 {
@@ -46,12 +62,13 @@
     main {
       flex-grow: 1;
       max-width: 720px;
-      margin: 30px auto;
-      background: rgba(255, 255, 255, 0.1);
+      margin: 0 auto 40px auto;
+      background: rgba(0, 0, 0, 0.5);
       border-radius: 15px;
       padding: 30px 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+      backdrop-filter: saturate(180%) blur(8px);
+      color: #dbe9f4;
     }
 
     main h2 {
@@ -66,7 +83,6 @@
     .bio-text {
       font-size: 1.1rem;
       line-height: 1.6;
-      color: #dbe9f4;
       margin-bottom: 30px;
       text-align: center;
     }
@@ -128,18 +144,20 @@
     }
 
     footer {
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.5);
       padding: 15px 10px;
       text-align: center;
       font-size: 0.9rem;
       color: #a1a1a1;
       user-select: none;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.7);
+      backdrop-filter: saturate(180%) blur(6px);
+      border-radius: 15px 15px 0 0;
     }
 
     @media (max-width: 480px) {
       main {
-        margin: 20px 15px;
+        margin: 0 15px 30px 15px;
         padding: 20px 15px;
       }
       header h1 {
@@ -197,7 +215,6 @@
     const playPauseBtn = document.getElementById('playPauseBtn');
     const audio = document.getElementById('backgroundAudio');
 
-    // Başlangıçta sessiz ve durdurulmuş
     audio.volume = 0.3;
 
     playPauseBtn.addEventListener('click', () => {
@@ -206,7 +223,6 @@
           playPauseBtn.textContent = '⏸ Durdur';
           playPauseBtn.setAttribute('aria-pressed', 'true');
         }).catch(err => {
-          // Tarayıcı otomatik oynatma engellediyse kullanıcıya bırak
           alert('Otomatik oynatma engellendi, lütfen oynat düğmesine basınız.');
         });
       } else {
@@ -216,10 +232,16 @@
       }
     });
 
-    // Sayfa yüklendiğinde otomatik başlatmayı deneyelim (sessiz)
     window.addEventListener('load', () => {
       audio.play().then(() => {
         playPauseBtn.textContent = '⏸ Durdur';
         playPauseBtn.setAttribute('aria-pressed', 'true');
       }).catch(() => {
-        playPauseBtn.t
+        playPauseBtn.textContent = '🎵 Oynat';
+        playPauseBtn.setAttribute('aria-pressed', 'false');
+      });
+    });
+  </script>
+  
+</body>
+</html>
