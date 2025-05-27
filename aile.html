@@ -3,30 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aile Haber & Discord</title>
+  <title>Aile Haber & Discord - Müzik Player</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
 
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      /* Arka plan resmi eklendi */
-      background: url('aile2.png') no-repeat center center fixed;
+      background: url('aile2.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #f0f0f0;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      overflow-x: hidden;
-      /* Üstüne koymak için yarı saydam katman */
       position: relative;
+      overflow-x: hidden;
     }
 
-    /* Üst katman: koyu filtre */
     body::before {
       content: "";
       position: fixed;
@@ -112,35 +105,57 @@
     }
 
     .audio-player {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
+      max-width: 480px;
       margin: 0 auto;
-      max-width: 360px;
       background: rgba(0,0,0,0.4);
-      padding: 12px 20px;
-      border-radius: 50px;
-      box-shadow: 0 0 15px #00b4d8;
+      padding: 20px 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #00b4d8;
+      user-select: none;
     }
 
-    .audio-player button {
+    .audio-player h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #00b4d8;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    button {
       background: #00b4d8;
       border: none;
       color: white;
       font-weight: 700;
-      padding: 10px 20px;
+      padding: 12px 20px;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 8px #00b4d8;
+      box-shadow: 0 0 12px #00b4d8;
       font-size: 1rem;
-      user-select: none;
       transition: background 0.3s ease;
+      user-select: none;
+      min-width: 110px;
+      text-align: center;
     }
 
-    .audio-player button:hover {
+    button:hover {
       background: #0099c1;
-      box-shadow: 0 0 15px #0081a4;
+      box-shadow: 0 0 18px #0081a4;
+    }
+
+    .volume-display {
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 5px;
+      color: #a0d8ff;
     }
 
     footer {
@@ -153,6 +168,7 @@
       box-shadow: 0 -4px 12px rgba(0,0,0,0.7);
       backdrop-filter: saturate(180%) blur(6px);
       border-radius: 15px 15px 0 0;
+      margin-top: auto;
     }
 
     @media (max-width: 480px) {
@@ -168,11 +184,12 @@
         padding: 10px 20px;
       }
       .audio-player {
-        max-width: 280px;
-        gap: 6px;
+        max-width: 90vw;
+        padding: 15px 20px;
       }
-      .audio-player button {
-        padding: 8px 16px;
+      button {
+        min-width: 100px;
+        padding: 10px 15px;
         font-size: 0.9rem;
       }
     }
@@ -198,13 +215,23 @@
       </a>
     </div>
 
-    <div class="audio-player" aria-label="Arka plan müziği kontrolü">
-      <button id="playPauseBtn" aria-pressed="false" aria-label="Müziği oynat/durdur">🎵 Oynat</button>
-      <audio id="backgroundAudio" loop preload="auto">
-        <source src="sarki.mp3" type="audio/mpeg" />
+    <section class="audio-player" aria-label="Müzik çalar kontrolü">
+      <h3 id="trackName">Şarkı: sarkı1</h3>
+
+      <div class="controls">
+        <button id="playPauseBtn" aria-pressed="false" aria-label="Müziği oynat/durdur">▶️ Oynat</button>
+        <button id="changeTrackBtn" aria-label="Şarkıyı değiştir">🔁 Şarkıyı Değiştir</button>
+        <button id="volDownBtn" aria-label="Sesi azalt">🔉 Sesi Azalt</button>
+        <button id="volUpBtn" aria-label="Sesi artır">🔊 Sesi Artır</button>
+        <button id="muteBtn" aria-pressed="false" aria-label="Sessize al / sessizden çıkar">🔈 Mute</button>
+      </div>
+      <div class="volume-display" aria-live="polite" aria-atomic="true">Ses: %30</div>
+
+      <audio id="audioPlayer" preload="auto" loop>
+        <source src="sarkı1.mp3" type="audio/mpeg" />
         Tarayıcınız audio öğesini desteklemiyor.
       </audio>
-    </div>
+    </section>
   </main>
 
   <footer>
@@ -212,36 +239,10 @@
   </footer>
 
   <script>
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const audio = document.getElementById('backgroundAudio');
+    const tracks = [
+      {name: "sarkı1", file: "sarkı.mp3"},
+      {name: "pembe", file: "pembe.mp3"}
+    ];
 
-    audio.volume = 0.3;
-
-    playPauseBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play().then(() => {
-          playPauseBtn.textContent = '⏸ Durdur';
-          playPauseBtn.setAttribute('aria-pressed', 'true');
-        }).catch(err => {
-          alert('Otomatik oynatma engellendi, lütfen oynat düğmesine basınız.');
-        });
-      } else {
-        audio.pause();
-        playPauseBtn.textContent = '🎵 Oynat';
-        playPauseBtn.setAttribute('aria-pressed', 'false');
-      }
-    });
-
-    window.addEventListener('load', () => {
-      audio.play().then(() => {
-        playPauseBtn.textContent = '⏸ Durdur';
-        playPauseBtn.setAttribute('aria-pressed', 'true');
-      }).catch(() => {
-        playPauseBtn.textContent = '🎵 Oynat';
-        playPauseBtn.setAttribute('aria-pressed', 'false');
-      });
-    });
-  </script>
-  
-</body>
-</html>
+    const audio = document.getElementById('audioPlayer');
+   
