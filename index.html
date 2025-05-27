@@ -1,128 +1,194 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Aile Discord Sayfası</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('background.png') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ehliyet Geri Sayımı</title>
 
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 50px 20px;
-      min-height: 100vh;
-    }
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&family=Roboto&display=swap" rel="stylesheet" />
 
+<style>
+  /* Genel ayarlar */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .countdown {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    background: rgba(255,255,255,0.85);
+    padding: 20px 40px;
+    border-radius: 20px;
+    color: #34495e;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    margin-bottom: 30px;
+    min-width: 320px;
+  }
+
+  .time-segment {
+    display: inline-block;
+    margin: 0 15px;
+  }
+
+  .time-value {
+    font-size: 3rem;
+    display: block;
+    color: #2980b9;
+  }
+
+  .time-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #7f8c8d;
+  }
+
+  .quote-box {
+    max-width: 600px;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #2c3e50cc;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    transition: background 0.4s ease;
+  }
+
+  .footer {
+    font-size: 0.9rem;
+    color: #34495e99;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Responsive */
+  @media(max-width: 480px){
     h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
+      font-size: 2.4rem;
     }
-
-    .bio {
-      font-size: 20px;
-      margin-bottom: 30px;
+    .countdown {
+      font-size: 1.4rem;
+      padding: 15px 25px;
+      min-width: 280px;
     }
-
-    .discord-link {
-      color: #00bfff;
-      font-size: 18px;
-      text-decoration: none;
+    .time-value {
+      font-size: 2.2rem;
     }
-
-    .player-controls {
-      margin-top: 30px;
+    .quote-box {
+      font-size: 1.1rem;
+      max-width: 90vw;
+      padding: 20px;
     }
-
-    button {
-      background-color: #00bfff;
-      border: none;
-      padding: 12px 24px;
-      margin: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    input[type=range] {
-      width: 200px;
-      margin-top: 20px;
-    }
-
-    .counter {
-      font-size: 32px;
-      margin-top: 40px;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="overlay">
-    <h1>👨‍👩‍👧‍👦 Aile Discord Kanalı</h1>
-    <div class="bio">Ailemizin özel alanı, hoş geldiniz!</div>
-    <a href="https://discord.gg/orneklink" target="_blank" class="discord-link">💬 Discord'a Katıl</a>
 
-    <div class="player-controls">
-      <audio id="audioPlayer" preload="auto" loop>
-        <source src="sarkı1.mp3" type="audio/mpeg" />
-      </audio>
+  <h1>Ehliyet Geri Sayımı</h1>
 
-      <div>
-        <button onclick="playAudio()">▶️ Oynat</button>
-        <button onclick="nextTrack()">⏭️ Şarkı Değiştir</button>
-      </div>
-
-      <div>
-        🔊 Ses:
-        <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="changeVolume(this.value)">
-      </div>
+  <div class="countdown" id="countdown">
+    <div class="time-segment">
+      <span class="time-value" id="days">0</span>
+      <span class="time-label">Gün</span>
     </div>
-
-    <div class="counter">
-      👁️ Tıklama Sayısı: <span id="clickCounter">0</span>
+    <div class="time-segment">
+      <span class="time-value" id="hours">00</span>
+      <span class="time-label">Saat</span>
+    </div>
+    <div class="time-segment">
+      <span class="time-value" id="minutes">00</span>
+      <span class="time-label">Dakika</span>
+    </div>
+    <div class="time-segment">
+      <span class="time-value" id="seconds">00</span>
+      <span class="time-label">Saniye</span>
     </div>
   </div>
 
-  <script>
-    const audio = document.getElementById("audioPlayer");
-    const counter = document.getElementById("clickCounter");
-    const tracks = ["sarkı1.mp3", "pembe.mp3"];
-    let currentTrack = 0;
+  <div class="quote-box" id="quote">
+    “Her gün yeni bir başlangıçtır. Sabret, başaracaksın.” 
+  </div>
 
-    function playAudio() {
-      audio.play();
+  <div class="footer">Doğum Tarihin: 3 Ocak 2009</div>
+
+<script>
+  const quotes = [
+    "Başarı, azimli adımların sonunda gelir.",
+    "Sabırla çalışanın başarısı büyüktür.",
+    "Bugün yaptıkların, yarınını şekillendirir.",
+    "Her zorluk yeni bir fırsattır.",
+    "Hayallerin için çalış, vazgeçme.",
+    "Adım adım ilerlemek en iyisidir.",
+    "Her gün öğrenmek, büyümektir.",
+    "Başarı, kendine inananların yoludur.",
+    "İmkansız sadece bir kelimedir.",
+    "Yarın, bugün başlanan işlerle güzeldir.",
+    "Azimle devam et, hedefine ulaşacaksın.",
+    "Her gün yeni bir umut taşır.",
+    "Güçlü olan değil, devam eden kazanır.",
+    "Küçük adımlar büyük fark yaratır.",
+    "Düşlerin peşinden git, asla vazgeçme."
+  ];
+
+  const birthday = new Date(2027, 0, 3, 0, 0, 0); // 3 Ocak 2027
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = birthday - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerHTML = `
+        <h2 style="color:#27ae60;">🎉 Ehliyet Alma Yaşına Geldin! 🎉</h2>
+        <p style="font-size:1.2rem; color:#2c3e50;">Artık ehliyet başvurusu yapabilirsin.</p>
+      `;
+      document.getElementById("quote").innerText = "Hayallerinin peşinden git, artık hazırsın!";
+      return;
     }
 
-    function nextTrack() {
-      currentTrack = (currentTrack + 1) % tracks.length;
-      audio.src = tracks[currentTrack];
-      audio.play();
-    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-    function changeVolume(val) {
-      audio.volume = val;
-    }
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours.toString().padStart(2,"0");
+    document.getElementById("minutes").innerText = minutes.toString().padStart(2,"0");
+    document.getElementById("seconds").innerText = seconds.toString().padStart(2,"0");
 
-    // Sayı animasyonu (453'e kadar)
-    let count = 0;
-    const target = 453;
+    // Gün bazlı motivasyon sözü seç
+    const startDate = new Date(2024, 4, 28); // Bugün gibi bir başlangıç tarihi (bugünden önceki tarih)
+    const dayCount = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    const quoteIndex = dayCount % quotes.length;
+    document.getElementById("quote").innerText = "“" + quotes[quoteIndex] + "”";
+  }
 
-    function animateCounter() {
-      if (count < target) {
-        count++;
-        counter.innerText = count;
-        setTimeout(animateCounter, 10); // animasyon hızı
-      }
-    }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
 
-    window.onload = function () {
-      animateCounter();
-      audio.volume = 0.5;
-    }
-  </script>
 </body>
 </html>
