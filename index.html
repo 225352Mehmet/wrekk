@@ -1,167 +1,248 @@
-v<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Anonim Mesaj Gönder</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aile Haber & Discord - Müzik Player</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    color: #fff;
-  }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('aile2.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-  .container {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-    max-width: 420px;
-    width: 100%;
-    padding: 40px 30px;
-    box-sizing: border-box;
-    text-align: center;
-  }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: -1;
+    }
 
-  h2 {
-    margin-bottom: 30px;
-    font-weight: 600;
-    font-size: 28px;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  }
+    header {
+      background: rgba(0,0,0,0.5);
+      padding: 25px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+      backdrop-filter: saturate(180%) blur(5px);
+      border-radius: 0 0 15px 15px;
+      margin-bottom: 30px;
+    }
 
-  form {
-    display: flex;
-    flex-direction: column;
-  }
+    header h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 2.6rem;
+      letter-spacing: 1.5px;
+    }
 
-  label {
-    text-align: left;
-    font-weight: 600;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #e0e0e0;
-    user-select: none;
-  }
+    header p {
+      margin-top: 6px;
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: #cce6ff;
+    }
 
-  input[type="text"],
-  textarea {
-    padding: 12px 15px;
-    border-radius: 12px;
-    border: none;
-    outline: none;
-    font-size: 15px;
-    font-weight: 400;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    margin-bottom: 20px;
-    transition: background 0.3s ease;
-    resize: vertical;
-  }
-  input[type="text"]::placeholder,
-  textarea::placeholder {
-    color: #d1c4e9aa;
-  }
-  input[type="text"]:focus,
-  textarea:focus {
-    background: rgba(255, 255, 255, 0.35);
-  }
+    main {
+      flex-grow: 1;
+      max-width: 720px;
+      margin: 0 auto 40px auto;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 30px 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+      backdrop-filter: saturate(180%) blur(8px);
+      color: #dbe9f4;
+    }
 
-  button {
-    background: #6c63ff;
-    border: none;
-    padding: 14px 0;
-    font-size: 17px;
-    font-weight: 600;
-    border-radius: 15px;
-    cursor: pointer;
-    color: white;
-    box-shadow: 0 6px 12px rgba(108, 99, 255, 0.45);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-  }
-  button:hover {
-    background: #574dcf;
-    box-shadow: 0 8px 20px rgba(87, 77, 207, 0.65);
-  }
+    main h2 {
+      font-weight: 600;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #ade8f4;
+      text-shadow: 0 0 8px #48cae4;
+    }
 
-  .privacy-note {
-    font-size: 12px;
-    color: #c9c3f4cc;
-    margin-top: -15px;
-    margin-bottom: 25px;
-    user-select: none;
-  }
+    .bio-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
-  .thank-you {
-    font-size: 18px;
-    font-weight: 600;
-    color: #b5f4a5;
-    user-select: none;
-  }
-</style>
+    .discord-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .discord-link {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #7289da;
+      color: white;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px #5865f2;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      font-size: 1.2rem;
+    }
+
+    .discord-link:hover {
+      background: #5b6eae;
+      box-shadow: 0 6px 20px #4956c5;
+    }
+
+    .audio-player {
+      max-width: 480px;
+      margin: 0 auto;
+      background: rgba(0,0,0,0.4);
+      padding: 20px 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #00b4d8;
+      user-select: none;
+    }
+
+    .audio-player h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #00b4d8;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #00b4d8;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #00b4d8;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      user-select: none;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    button:hover {
+      background: #0099c1;
+      box-shadow: 0 0 18px #0081a4;
+    }
+
+    .volume-display {
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 5px;
+      color: #a0d8ff;
+    }
+
+    footer {
+      background: rgba(0,0,0,0.5);
+      padding: 15px 10px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a1a1a1;
+      user-select: none;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.7);
+      backdrop-filter: saturate(180%) blur(6px);
+      border-radius: 15px 15px 0 0;
+      margin-top: auto;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        margin: 0 15px 30px 15px;
+        padding: 20px 15px;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      .discord-link {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+      .audio-player {
+        max-width: 90vw;
+        padding: 15px 20px;
+      }
+      button {
+        min-width: 100px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <h2>Anonim Mesaj Gönder</h2>
+  <header>
+    <h1>Aile Haber & Sohbet</h1>
+    <p>Güncel haberler ve sıcak sohbetler burada!</p>
+  </header>
 
-  <form id="anonimForm" action="https://formsubmit.co/mkoc78510@gmail.com" method="POST" autocomplete="off">
-    <input type="hidden" name="_captcha" value="false" />
-    
-    <label for="name">İsim (isteğe bağlı)</label>
-    <input type="text" id="name" name="name" placeholder="k Adınız (gizli kalacak)" />
+  <main>
+    <h2>Biz Kimiz?</h2>
+    <p class="bio-text">
+      Bu platform ailemiz için güncel haberlerin, duyuruların ve güzel sohbetlerin paylaşıldığı bir ortamdır.  
+      Birlikte büyüyor, birbirimizi destekliyoruz. Discord kanalımıza katılarak bize hemen katılabilirsiniz!
+    </p>
 
-    <label for="message">Mesajınız <span style="color:#ff6f61">*</span></label>
-    <textarea id="message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın"></textarea>
+    <div class="discord-container">
+      <a class="discord-link" href="https://discord.gg/yourinvite" target="_blank" rel="noopener noreferrer" aria-label="Discord Kanalına Katıl">
+        Discord Kanalımıza Katıl
+      </a>
+    </div>
 
-    <button type="submit">Gönder</button>
-  </form>
+    <section class="audio-player" aria-label="Müzik çalar kontrolü">
+      <h3 id="trackName">Şarkı: sarkı1</h3>
 
-  <p class="privacy-note">İsimler gizli tutulur ve kimseyle paylaşılmaz.</p>
+      <div class="controls">
+        <button id="playPauseBtn" aria-pressed="false" aria-label="Müziği oynat/durdur">▶️ Oynat</button>
+        <button id="changeTrackBtn" aria-label="Şarkıyı değiştir">🔁 Şarkıyı Değiştir</button>
+        <button id="volDownBtn" aria-label="Sesi azalt">🔉 Sesi Azalt</button>
+        <button id="volUpBtn" aria-label="Sesi artır">🔊 Sesi Artır</button>
+        <button id="muteBtn" aria-pressed="false" aria-label="Sessize al / sessizden çıkar">🔈 Mute</button>
+      </div>
+      <div class="volume-display" aria-live="polite" aria-atomic="true">Ses: %30</div>
 
-  <p id="thankYouMsg" class="thank-you" style="display:none;">Mesajınız başarıyla gönderildi, teşekkürler!</p>
-</div>
+      <audio id="audioPlayer" preload="auto" loop>
+        <source src="sarkı1.mp3" type="audio/mpeg" />
+        Tarayıcınız audio öğesini desteklemiyor.
+      </audio>
+    </section>
+  </main>
 
-<script>
-  const form = document.getElementById('anonimForm');
-  const thankYouMsg = document.getElementById('thankYouMsg');
+  <footer>
+    &copy; 2025 Aile Haber Sitesi | Tüm hakları saklıdır.
+  </footer>
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
+  <script>
+    const tracks = [
+      {name: "sarkı1", file: "sarkı1.mp3"},
+      {name: "pembe", file: "pembe.mp3"}
+    ];
 
-    const formData = new FormData(form);
-    if (!formData.get('message').trim()) {
-      alert('Lütfen mesajınızı yazın.');
-      return;
-    }
-
-    fetch(form.action, {
-      method: form.method,
-      headers: { 'Accept': 'application/json' },
-      body: formData
-    })
-    .then(response => {
-      if (response.ok) {
-        form.style.display = 'none';
-        thankYouMsg.style.display = 'block';
-      } else {
-        alert('Bir hata oluştu, lütfen tekrar deneyin.');
-      }
-    })
-    .catch(() => {
-      alert('Bir hata oluştu, lütfen tekrar deneyin.');
-    });
-  });
-</script>
-
-</body>
-</html>
+    const audio = document.getElementById('audioPlayer');
+   
