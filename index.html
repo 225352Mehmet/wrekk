@@ -2,28 +2,131 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anonim Mesaj Gönder</title>
 <style>
-  body { font-family: Arial, sans-serif; background:#f2f2f2; padding:20px; }
-  .container { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
-  input, textarea, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #ccc; }
-  button { background: #4CAF50; color: white; border: none; cursor: pointer; }
-  button:hover { background: #45a049; }
-  .info { font-size: 0.9em; color: #555; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+  }
+  .container {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    max-width: 420px;
+    width: 100%;
+  }
+  h2 {
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #555;
+  }
+  input[type=text], textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+  }
+  input[type=text]:focus, textarea:focus {
+    border-color: #4caf50;
+    outline: none;
+  }
+  button {
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    font-weight: 700;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #43a047;
+  }
+  .info {
+    font-size: 13px;
+    color: #666;
+    margin-top: -12px;
+    margin-bottom: 18px;
+  }
+  .thankyou-message {
+    display: none;
+    text-align: center;
+    color: #2e7d32;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 15px;
+  }
+  .warning {
+    font-size: 13px;
+    color: #b71c1c;
+    margin-top: 8px;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <h2>Anonim Mesaj Gönder</h2>
-  <form action="https://formsubmit.co/mkoc78510@gmail.com" method="POST">
-    <input type="hidden" name="_captcha" value="false" />
-    <label>İsim (Gizli kalacak)</label>
-    <input type="text" name="isim" placeholder="Adınız" maxlength="50" required />
-    <label>Mesajınız</label>
-    <textarea name="mesaj" rows="5" maxlength="500" placeholder="Mesajınızı yazın" required></textarea>
-    <button type="submit">Gönder</button>
-    <p class="info">İsminiz kimseyle paylaşılmayacaktır.</p>
-  </form>
-</div>
+  <div class="container">
+    <h2>Anonim Mesaj Gönder</h2>
+    <form id="anonimForm" action="https://formsubmit.co/mkoc78510@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <label for="isim">İsim (Gizli kalacak)</label>
+      <input type="text" id="isim" name="isim" placeholder="Adınız" maxlength="50" required />
+      <label for="mesaj">Mesajınız</label>
+      <textarea id="mesaj" name="mesaj" placeholder="Mesajınızı yazın" maxlength="500" rows="5" required></textarea>
+      <button type="submit">Gönder</button>
+      <p class="info">İsminiz kimseyle paylaşılmayacaktır.</p>
+      <p class="warning">Lütfen mesajı başka platformlarda paylaşmayınız.</p>
+    </form>
+    <div class="thankyou-message" id="thankyouMessage">
+      Teşekkürler! Mesajınız başarıyla gönderildi.
+    </div>
+  </div>
+
+<script>
+  const form = document.getElementById('anonimForm');
+  const thankyou = document.getElementById('thankyouMessage');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        thankyou.style.display = 'block';
+      } else {
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+      }
+    })
+    .catch(() => alert('Bir hata oluştu. Lütfen internet bağlantınızı kontrol edin.'));
+  });
+</script>
 </body>
 </html>
