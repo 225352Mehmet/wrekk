@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aile Haber Sitesi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header, footer {
+      background: #1f1f1f;
+      padding: 15px 20px;
+      text-align: center;
+    }
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    a {
+      color: #00bfff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    audio {
+      width: 100%;
+      margin-top: 10px;
+      outline: none;
+    }
+    .discord-link {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    section.bio {
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 30px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Aile Haber Sitesi</h1>
+    <p>Güncel haberler ve sohbetler için buradayız!</p>
+  </header>
+
+  <main>
+    <h2>Biz Kimiz?</h2>
+    <section class="bio">
+      <p>Bu site ailemiz için haberlerin, güncellemelerin ve sohbetlerin paylaşıldığı sıcak bir platformdur. Bizimle kalın, birbirimizi destekleyelim!</p>
+    </section>
+
+    <div class="discord-link">
+      <p>Discord Kanalımız: 
+        <a href="https://discord.gg/yourinvite" target="_blank" rel="noopener noreferrer">
+          Buraya Katıl
+        </a>
+      </p>
+    </div>
+
+    <audio controls>
+      <source src="sarki.mp3" type="audio/mpeg" />
+      Tarayıcınız audio elementini desteklemiyor.
+    </audio>
+  </main>
+
+  <footer>
+    &copy; 2025 Aile Haber Sitesi | Tüm hakları saklıdır.
+  </footer>
+
+</body>
+</html>
+
