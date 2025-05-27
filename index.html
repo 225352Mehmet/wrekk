@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<title>Anonim Mesaj Gönder</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f2f2f2; padding:20px; }
+  .container { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+  input, textarea, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #ccc; }
+  button { background: #4CAF50; color: white; border: none; cursor: pointer; }
+  button:hover { background: #45a049; }
+  .info { font-size: 0.9em; color: #555; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Anonim Mesaj Gönder</h2>
+  <form action="https://formsubmit.co/mkoc78510@gmail.com" method="POST">
+    <input type="hidden" name="_captcha" value="false" />
+    <label>İsim (Gizli kalacak)</label>
+    <input type="text" name="isim" placeholder="Adınız" maxlength="50" required />
+    <label>Mesajınız</label>
+    <textarea name="mesaj" rows="5" maxlength="500" placeholder="Mesajınızı yazın" required></textarea>
+    <button type="submit">Gönder</button>
+    <p class="info">İsminiz kimseyle paylaşılmayacaktır.</p>
+  </form>
+</div>
+</body>
+</html>
