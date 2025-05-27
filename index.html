@@ -1,30 +1,128 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Şarkı Testi</title>
+  <meta charset="UTF-8" />
+  <title>Aile Discord Sayfası</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('background.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 50px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .bio {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .discord-link {
+      color: #00bfff;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    .player-controls {
+      margin-top: 30px;
+    }
+
+    button {
+      background-color: #00bfff;
+      border: none;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    input[type=range] {
+      width: 200px;
+      margin-top: 20px;
+    }
+
+    .counter {
+      font-size: 32px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
-<body style="background-color:#111; color:white; text-align:center; padding:50px; font-family:sans-serif;">
+<body>
+  <div class="overlay">
+    <h1>👨‍👩‍👧‍👦 Aile Discord Kanalı</h1>
+    <div class="bio">Ailemizin özel alanı, hoş geldiniz!</div>
+    <a href="https://discord.gg/orneklink" target="_blank" class="discord-link">💬 Discord'a Katıl</a>
 
-  <h1>🎵 Şarkı Test Sayfası</h1>
-  <p>Aşağıdaki butonla şarkıyı başlatabilirsin.</p>
+    <div class="player-controls">
+      <audio id="audioPlayer" preload="auto" loop>
+        <source src="sarkı1.mp3" type="audio/mpeg" />
+      </audio>
 
-  <button onclick="playAudio()" style="padding:10px 20px; font-size:18px;">▶️ Oynat</button>
+      <div>
+        <button onclick="playAudio()">▶️ Oynat</button>
+        <button onclick="nextTrack()">⏭️ Şarkı Değiştir</button>
+      </div>
 
-  <audio id="myAudio">
-    <source src="sarkı1.mp3" type="audio/mpeg">
-    Tarayıcın audio desteği vermiyor.
-  </audio>
+      <div>
+        🔊 Ses:
+        <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="changeVolume(this.value)">
+      </div>
+    </div>
+
+    <div class="counter">
+      👁️ Tıklama Sayısı: <span id="clickCounter">0</span>
+    </div>
+  </div>
 
   <script>
+    const audio = document.getElementById("audioPlayer");
+    const counter = document.getElementById("clickCounter");
+    const tracks = ["sarkı1.mp3", "pembe.mp3"];
+    let currentTrack = 0;
+
     function playAudio() {
-      const audio = document.getElementById("myAudio");
-      audio.volume = 0.3; // ses seviyesi %30
-      audio.play()
-        .then(() => console.log("Şarkı oynuyor..."))
-        .catch(err => alert("Şarkı oynatılamadı: " + err));
+      audio.play();
+    }
+
+    function nextTrack() {
+      currentTrack = (currentTrack + 1) % tracks.length;
+      audio.src = tracks[currentTrack];
+      audio.play();
+    }
+
+    function changeVolume(val) {
+      audio.volume = val;
+    }
+
+    // Sayı animasyonu (453'e kadar)
+    let count = 0;
+    const target = 453;
+
+    function animateCounter() {
+      if (count < target) {
+        count++;
+        counter.innerText = count;
+        setTimeout(animateCounter, 10); // animasyon hızı
+      }
+    }
+
+    window.onload = function () {
+      animateCounter();
+      audio.volume = 0.5;
     }
   </script>
-
 </body>
 </html>
