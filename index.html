@@ -5,6 +5,157 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Özgeçmiş Bio</title>
 <style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0a 60%, #333 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+  }
+  .container {
+    background: rgba(10,10,10,0.85);
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    max-width: 420px;
+    width: 90vw;
+    text-align: center;
+  }
+  .profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #555;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px #222 inset;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    letter-spacing: 1.8px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 0.3s;
+  }
+  .bio-text {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: #ccc;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+    animation-delay: 1s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .music-controls {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  button {
+    background: #222;
+    border: none;
+    color: #eee;
+    padding: 12px 18px;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    cursor: pointer;
+    box-shadow: 0 0 10px #111;
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  button:hover {
+    background: #555;
+    transform: scale(1.1);
+  }
+  @media (max-width: 480px) {
+    .container {
+      max-width: 95vw;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 1.6rem;
+    }
+    .bio-text {
+      font-size: 1rem;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+    }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- FOTOĞRAF BURAYA KOY -->
+  <img src="foto2.jpg" alt="Profil Fotoğrafı" class="profile-pic" />
+  <h1>Mehmet'in Özgeçmişi</h1>
+  <p class="bio-text">
+    2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, üniversite okumadım.
+  </p>
+
+  <div class="music-controls" aria-label="Müzik Kontrolleri">
+    <button id="changeSongBtn" title="Şarkı Değiştir" aria-label="Şarkı Değiştir">🔁</button>
+    <button id="muteBtn" title="Ses Kıs/Aç" aria-label="Ses Kıs veya Aç">🔈</button>
+  </div>
+
+  <audio id="audioPlayer" autoplay loop>
+    <source src="bio2.mp3" type="audio/mpeg" />
+    Tarayıcınız ses elementini desteklemiyor.
+  </audio>
+</div>
+
+<script>
+  const audio = document.getElementById('audioPlayer');
+  const changeSongBtn = document.getElementById('changeSongBtn');
+  const muteBtn = document.getElementById('muteBtn');
+
+  const songs = ['bio2.mp3', 'bio3.mp3', 'bio4.mp3'];
+  let currentSong = 0;
+
+  changeSongBtn.onclick = () => {
+    currentSong = (currentSong + 1) % songs.length;
+    audio.src = songs[currentSong];
+    audio.play();
+  };
+
+  muteBtn.onclick = () => {
+    if (audio.muted) {
+      audio.muted = false;
+      muteBtn.textContent = '🔈';
+    } else {
+      audio.muted = true;
+      muteBtn.textContent = '🔇';
+    }
+  };
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Özgeçmiş Bio</title>
+<style>
   /* Arka plan degrade siyah-gri */
   body {
     margin: 0;
