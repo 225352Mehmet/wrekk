@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bio & Müzik</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="photo-box">
+      <img src="assets/foto2.jpg" alt="Benim Fotoğrafım" />
+    </div>
+
+    <div class="bio-box">
+      <h2>Hakkımda</h2>
+      <p>2007 yılında doğdum. 2017'den beri web tasarımıyla ilgileniyorum. Ankara/Çankırı'da yaşıyorum. Aydınlıkevler Anadolu Lisesi'nde okuyorum.</p>
+    </div>
+
+    <div class="music-box">
+      <div class="song-cover">
+        <img id="cover" src="assets/cover1.jpg" alt="Kapak">
+      </div>
+      <h3 id="songTitle">Chill Vibes</h3>
+      <audio id="audio" controls autoplay>
+        <source src="assets/song1.mp3" type="audio/mpeg">
+        Tarayıcınız ses öğesini desteklemiyor.
+      </audio>
+      <div class="controls">
+        <button onclick="prevSong()">⏮</button>
+        <button onclick="nextSong()">⏭</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
