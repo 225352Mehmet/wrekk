@@ -3,33 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Spotify Benzeri Müzik Player</title>
+<title>Bio & Müzik Player</title>
 <style>
   body {
     margin: 0;
-    min-height: 100vh;
     background: linear-gradient(135deg, #0a0a0a 70%, #222 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #eee;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    min-height: 100vh;
     padding: 20px;
   }
   .container {
-    display: flex;
-    background: rgba(10,10,10,0.9);
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.7);
     max-width: 900px;
     width: 100%;
-    padding: 30px;
-    gap: 40px;
+    display: flex;
+    gap: 30px;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
   }
-  /* Sol kutu: Fotoğraf */
+  /* Fotoğraf kutusu */
   .photo-box {
     flex: 0 0 250px;
     width: 250px;
@@ -45,33 +40,63 @@
     object-fit: cover;
   }
   
-  /* Sağ kutu: Hakkımda + Müzik kontrolleri */
-  .info-box {
+  /* Hakkımda kutusu */
+  .bio-box {
     flex: 1 1 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 25px;
-  }
-  .bio-text {
+    background: rgba(20, 20, 20, 0.85);
+    border-radius: 20px;
+    padding: 20px 30px;
+    box-shadow: 0 0 20px #111;
     font-size: 1.2rem;
     line-height: 1.6;
     color: #ccc;
   }
   
-  /* Müzik kontrolleri */
+  /* Şarkı kutusu */
+  .music-box {
+    flex: 1 1 300px;
+    background: rgba(10, 10, 10, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 0 20px #000;
+    padding: 20px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .music-box .song-cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #000;
+    border: 3px solid #555;
+  }
+  .music-box .song-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .music-box .song-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #eee;
+    text-align: center;
+    margin: 0;
+  }
   .music-controls {
     display: flex;
-    gap: 20px;
-    justify-content: start;
-    align-items: center;
+    gap: 25px;
+    margin-top: 10px;
   }
   button.music-btn {
     background: #222;
     border: none;
     color: #eee;
-    padding: 12px 18px;
-    border-radius: 50%;
+    padding: 15px 22px;
+    border-radius: 12px;
     font-size: 1.8rem;
     cursor: pointer;
     box-shadow: 0 0 12px #000;
@@ -85,43 +110,17 @@
     transform: scale(1.1);
   }
   
-  /* Şarkı bilgisi alanı */
-  .song-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .song-cover {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #000;
-    overflow: hidden;
-    border: 2px solid #555;
-  }
-  .song-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .song-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #eee;
-  }
-
-  @media (max-width: 700px) {
+  @media (max-width: 750px) {
     .container {
       flex-direction: column;
-      max-width: 90vw;
-      gap: 30px;
+      align-items: center;
     }
-    .photo-box, .info-box {
-      flex: none;
-      width: 100%;
+    .bio-box, .music-box {
+      max-width: 100%;
+      width: 90vw;
     }
     .photo-box {
-      height: 250px;
+      margin-bottom: 30px;
     }
   }
 </style>
@@ -133,23 +132,19 @@
     <img src="foto2.jpg" alt="Profil Fotoğrafı" id="profilePic" />
   </div>
   
-  <div class="info-box">
-    <p class="bio-text">
-      2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, üniversite okumadım.
-    </p>
-    
-    <div class="song-info" aria-label="Şarkı Bilgisi">
-      <div class="song-cover">
-        <img src="cover1.jpg" alt="Şarkı Kapak Fotoğrafı" id="coverImg" />
-      </div>
-      <div class="song-title" id="songTitle">Bio Şarkı 1</div>
-    </div>
+  <div class="bio-box">
+    2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, üniversite okumadım.
+  </div>
 
-    <div class="music-controls" aria-label="Müzik Kontrolleri">
+  <div class="music-box">
+    <div class="song-cover">
+      <img src="cover1.jpg" alt="Şarkı Kapak Fotoğrafı" id="coverImg" />
+    </div>
+    <h3 class="song-title" id="songTitle">Bio Şarkı 1</h3>
+    <div class="music-controls">
       <button id="changeSongBtn" class="music-btn" title="Şarkı Değiştir" aria-label="Şarkı Değiştir">🔁</button>
       <button id="muteBtn" class="music-btn" title="Ses Kıs/Aç" aria-label="Ses Kıs veya Aç">🔈</button>
     </div>
-
     <audio id="audioPlayer" autoplay loop>
       <source src="bio2.mp3" type="audio/mpeg" />
       Tarayıcınız ses elementini desteklemiyor.
