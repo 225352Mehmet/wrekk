@@ -14,6 +14,7 @@
     align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #eee;
+    flex-direction: column;
   }
   .container {
     background: rgba(10,10,10,0.85);
@@ -23,15 +24,6 @@
     max-width: 420px;
     width: 90vw;
     text-align: center;
-  }
-  .profile-pic {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #555;
-    margin-bottom: 20px;
-    box-shadow: 0 0 15px #222 inset;
   }
   h1 {
     font-size: 2rem;
@@ -51,17 +43,55 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 30px;
   }
   @keyframes fadeIn {
     to { opacity: 1; }
   }
+
+  /* Foto slider kutusu + oklar */
+  .photo-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .arrow-btn {
+    background: #222;
+    border: none;
+    color: #eee;
+    font-size: 2rem;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 0 10px #111;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .arrow-btn:hover {
+    background: #555;
+    transform: scale(1.1);
+  }
+
+  .profile-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid #555;
+    box-shadow: 0 0 20px #222 inset;
+    transition: opacity 0.5s ease;
+  }
+
+  /* Müzik kontrolleri */
   .music-controls {
-    margin-top: 30px;
     display: flex;
     justify-content: center;
     gap: 20px;
   }
-  button {
+  button.music-btn {
     background: #222;
     border: none;
     color: #eee;
@@ -75,10 +105,11 @@
     align-items: center;
     justify-content: center;
   }
-  button:hover {
+  button.music-btn:hover {
     background: #555;
     transform: scale(1.1);
   }
+
   @media (max-width: 480px) {
     .container {
       max-width: 95vw;
@@ -92,11 +123,11 @@
       white-space: normal;
       overflow: visible;
       text-overflow: clip;
+      margin-bottom: 20px;
     }
     .profile-pic {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 15px;
+      width: 140px;
+      height: 140px;
     }
   }
 </style>
@@ -104,25 +135,55 @@
 <body>
 
 <div class="container">
-  <!-- FOTOĞRAF BURAYA KOY -->
-  <img src="foto2.jpg" alt="Profil Fotoğrafı" class="profile-pic" />
   <h1>Mehmet'in Özgeçmişi</h1>
+
   <p class="bio-text">
-    2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, .
+    2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, üniversite okumadım.
   </p>
 
+  <div class="photo-slider">
+    <button class="arrow-btn" id="prevBtn" aria-label="Önceki Fotoğraf">◀️</button>
+    <img src="foto2.jpg" alt="Profil Fotoğrafı" class="profile-pic" id="profilePic" />
+    <button class="arrow-btn" id="nextBtn" aria-label="Sonraki Fotoğraf">▶️</button>
+  </div>
+
   <div class="music-controls" aria-label="Müzik Kontrolleri">
-    <button id="changeSongBtn" title="Şarkı Değiştir" aria-label="Şarkı Değiştir">🔁</button>
-    <button id="muteBtn" title="Ses Kıs/Aç" aria-label="Ses Kıs veya Aç">🔈</button>
+    <button id="changeSongBtn" class="music-btn" title="Şarkı Değiştir" aria-label="Şarkı Değiştir">🔁</button>
+    <button id="muteBtn" class="music-btn" title="Ses Kıs/Aç" aria-label="Ses Kıs veya Aç">🔈</button>
   </div>
 
   <audio id="audioPlayer" autoplay loop>
     <source src="bio2.mp3" type="audio/mpeg" />
-   iphone kullanma :D ! Şarkı türünü Desteklemiyor.
+    Tarayıcınız ses elementini desteklemiyor.
   </audio>
 </div>
 
 <script>
+  const photos = ['foto2.jpg', 'foto3.jpg', 'foto4.jpg'];
+  let currentPhoto = 0;
+  const profilePic = document.getElementById('profilePic');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  prevBtn.addEventListener('click', () => {
+    currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+    fadePhotoChange();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    currentPhoto = (currentPhoto + 1) % photos.length;
+    fadePhotoChange();
+  });
+
+  function fadePhotoChange() {
+    profilePic.style.opacity = 0;
+    setTimeout(() => {
+      profilePic.src = photos[currentPhoto];
+      profilePic.style.opacity = 1;
+    }, 300);
+  }
+
+  // Müzik kontroller
   const audio = document.getElementById('audioPlayer');
   const changeSongBtn = document.getElementById('changeSongBtn');
   const muteBtn = document.getElementById('muteBtn');
@@ -143,167 +204,6 @@
     } else {
       audio.muted = true;
       muteBtn.textContent = '🔇';
-    }
-  };
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Özgeçmiş Bio</title>
-<style>
-  /* Arka plan degrade siyah-gri */
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0a0a0a 60%, #333 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #eee;
-  }
-
-  .container {
-    background: rgba(10,10,10,0.85);
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    max-width: 420px;
-    width: 90vw;
-    text-align: center;
-  }
-
-  /* Fotoğraf */
-  .profile-pic {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #555;
-    margin-bottom: 20px;
-    box-shadow: 0 0 15px #222 inset;
-  }
-
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    letter-spacing: 1.8px;
-    opacity: 0;
-    animation: fadeIn 1s forwards;
-    animation-delay: 0.3s;
-  }
-
-  p {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin: 10px 0;
-    opacity: 0;
-    animation: fadeIn 1s forwards;
-  }
-
-  p:nth-of-type(1) { animation-delay: 0.6s; }
-  p:nth-of-type(2) { animation-delay: 0.9s; }
-  p:nth-of-type(3) { animation-delay: 1.2s; }
-  p:nth-of-type(4) { animation-delay: 1.5s; }
-  p:nth-of-type(5) { animation-delay: 1.8s; font-style: italic; color: #aaa; }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
-  /* Müzik kontrolleri */
-  .music-controls {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-
-  button {
-    background: #222;
-    border: none;
-    color: #eee;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 0 8px #111;
-    transition: background 0.3s ease;
-  }
-
-  button:hover {
-    background: #555;
-  }
-
-  /* Responsive */
-  @media (max-width: 480px) {
-    .container {
-      max-width: 95vw;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 1.6rem;
-    }
-    p {
-      font-size: 1rem;
-    }
-    .profile-pic {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 15px;
-    }
-  }
-</style>
-</head>
-<body>
-
-<div class="container">
-  <img src="foto2.jpg" alt="Profil Fotoğrafı" class="profile-pic" />
-  <h1>Mehmet'in Özgeçmişi</h1>
-  <p><strong>Doğum Tarihi:</strong> 2 Mart 2007</p>
-  <p><strong>Eğitim:</strong> 2017'den beri Web Sitesi Tasarımı ile ilgileniyorum.</p>
-  <p><strong>İkamet:</strong> Ankara, Çankırı</p>
-  <p><strong>Lise:</strong> Aydınlıkevler Anadolu Lisesi (Hala devam ediyor)</p>
-  <p>Bu kadar.</p>
-
-  <div class="music-controls">
-    <button id="changeSongBtn">Şarkı Değiş</button>
-    <button id="muteBtn">Ses Kıs</button>
-  </div>
-
-  <audio id="audioPlayer" autoplay loop>
-    <source src="bio2.mp3" type="audio/mpeg" />
-    Tarayıcınız ses elementini desteklemiyor.
-  </audio>
-</div>
-
-<script>
-  const audio = document.getElementById('audioPlayer');
-  const changeSongBtn = document.getElementById('changeSongBtn');
-  const muteBtn = document.getElementById('muteBtn');
-
-  // Şarkı listesi (buraya başka mp3 dosya isimleri ekleyebilirsin)
-  const songs = ['bio2.mp3', 'bio3.mp3', 'bio4.mp3'];
-  let currentSong = 0;
-
-  changeSongBtn.onclick = () => {
-    currentSong = (currentSong + 1) % songs.length;
-    audio.src = songs[currentSong];
-    audio.play();
-  };
-
-  muteBtn.onclick = () => {
-    if (audio.muted) {
-      audio.muted = false;
-      muteBtn.textContent = 'Ses Kıs';
-    } else {
-      audio.muted = true;
-      muteBtn.textContent = 'Sesi Aç';
     }
   };
 </script>
