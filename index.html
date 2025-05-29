@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Özgeçmiş Bio</title>
+<title>Spotify Benzeri Müzik Player</title>
 <style>
   body {
     margin: 0;
@@ -64,6 +64,7 @@
     display: flex;
     gap: 20px;
     justify-content: start;
+    align-items: center;
   }
   button.music-btn {
     background: #222;
@@ -82,6 +83,31 @@
   button.music-btn:hover {
     background: #555;
     transform: scale(1.1);
+  }
+  
+  /* Şarkı bilgisi alanı */
+  .song-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .song-cover {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #000;
+    overflow: hidden;
+    border: 2px solid #555;
+  }
+  .song-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .song-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #eee;
   }
 
   @media (max-width: 700px) {
@@ -109,8 +135,15 @@
   
   <div class="info-box">
     <p class="bio-text">
-      2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde Mevzun oldum, üniversite okumadım.
+      2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, üniversite okumadım.
     </p>
+    
+    <div class="song-info" aria-label="Şarkı Bilgisi">
+      <div class="song-cover">
+        <img src="cover1.jpg" alt="Şarkı Kapak Fotoğrafı" id="coverImg" />
+      </div>
+      <div class="song-title" id="songTitle">Bio Şarkı 1</div>
+    </div>
 
     <div class="music-controls" aria-label="Müzik Kontrolleri">
       <button id="changeSongBtn" class="music-btn" title="Şarkı Değiştir" aria-label="Şarkı Değiştir">🔁</button>
@@ -128,14 +161,22 @@
   const audio = document.getElementById('audioPlayer');
   const changeSongBtn = document.getElementById('changeSongBtn');
   const muteBtn = document.getElementById('muteBtn');
+  const coverImg = document.getElementById('coverImg');
+  const songTitle = document.getElementById('songTitle');
 
-  const songs = ['bio2.mp3', 'bio3.mp3', 'bio4.mp3'];
+  const songs = [
+    {src: 'bio2.mp3', title: 'Bio Şarkı 1', cover: 'cover1.jpg'},
+    {src: 'bio3.mp3', title: 'Bio Şarkı 2', cover: 'cover2.jpg'},
+    {src: 'bio4.mp3', title: 'Bio Şarkı 3', cover: 'cover3.jpg'}
+  ];
   let currentSong = 0;
 
   changeSongBtn.onclick = () => {
     currentSong = (currentSong + 1) % songs.length;
-    audio.src = songs[currentSong];
+    audio.src = songs[currentSong].src;
     audio.play();
+    coverImg.src = songs[currentSong].cover;
+    songTitle.textContent = songs[currentSong].title;
   };
 
   muteBtn.onclick = () => {
