@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <title>Benim İlk Web Sitem</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benim Şık Web Sitem</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+      text-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+    p {
+      font-size: 1.2rem;
+      max-width: 400px;
+      margin-bottom: 1.5em;
+      line-height: 1.5;
+    }
+    button {
+      background: #ff6f61;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255,111,97,0.6);
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #ff3b2e;
+    }
+    footer {
+      margin-top: 2em;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 <body>
-    <h1>Merhaba GitHub Pages!</h1>
-    <p>Bu benim ilk statik web sitem.</p>
+  <h1>Hoşgeldin!</h1>
+  <p>Bu sayfa GitHub Pages üzerinde çalışan, minimalist ve şık bir örnek sayfadır.</p>
+  <button id="surpriseBtn">Bana Sürpriz Yap!</button>
+  <footer>© 2025 Senin Adın</footer>
+
+  <script>
+    const btn = document.getElementById('surpriseBtn');
+    btn.addEventListener('click', () => {
+      alert('Sürpriz! Bu sayfa tamamen senin kontrolünde. İyi eğlenceler!');
+    });
+  </script>
 </body>
 </html>
