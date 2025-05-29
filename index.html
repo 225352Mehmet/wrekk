@@ -3,40 +3,159 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ChatGPT Güvenli Sohbet</title>
+<title>Özgeçmiş Bio</title>
+<style>
+  /* Arka plan degrade siyah-gri */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0a 60%, #333 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+  }
+
+  .container {
+    background: rgba(10,10,10,0.85);
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    max-width: 420px;
+    width: 90vw;
+    text-align: center;
+  }
+
+  /* Fotoğraf */
+  .profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #555;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px #222 inset;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    letter-spacing: 1.8px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 0.3s;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: 10px 0;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+
+  p:nth-of-type(1) { animation-delay: 0.6s; }
+  p:nth-of-type(2) { animation-delay: 0.9s; }
+  p:nth-of-type(3) { animation-delay: 1.2s; }
+  p:nth-of-type(4) { animation-delay: 1.5s; }
+  p:nth-of-type(5) { animation-delay: 1.8s; font-style: italic; color: #aaa; }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* Müzik kontrolleri */
+  .music-controls {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  button {
+    background: #222;
+    border: none;
+    color: #eee;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 8px #111;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #555;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container {
+      max-width: 95vw;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 1.6rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 15px;
+    }
+  }
+</style>
 </head>
-<body style="max-width:600px; margin:auto; padding:20px; font-family:sans-serif;">
-  <h1>ChatGPT ile Sohbet</h1>
-  <input id="input" type="text" style="width:80%; padding:10px;" placeholder="Bir şeyler yaz..." />
-  <button id="send">Gönder</button>
-  <div id="response" style="margin-top:20px; white-space:pre-wrap;"></div>
+<body>
+
+<div class="container">
+  <img src="foto2.jpg" alt="Profil Fotoğrafı" class="profile-pic" />
+  <h1>Mehmet'in Özgeçmişi</h1>
+  <p><strong>Doğum Tarihi:</strong> 2 Mart 2007</p>
+  <p><strong>Eğitim:</strong> 2017'den beri Web Sitesi Tasarımı ile ilgileniyorum.</p>
+  <p><strong>İkamet:</strong> Ankara, Çankırı</p>
+  <p><strong>Lise:</strong> Aydınlıkevler Anadolu Lisesi (Hala devam ediyor)</p>
+  <p>Üniversite okumadım.</p>
+
+  <div class="music-controls">
+    <button id="changeSongBtn">Şarkı Değiş</button>
+    <button id="muteBtn">Ses Kıs</button>
+  </div>
+
+  <audio id="audioPlayer" autoplay loop>
+    <source src="bio2.mp3" type="audio/mpeg" />
+    Tarayıcınız ses elementini desteklemiyor.
+  </audio>
+</div>
 
 <script>
-  const input = document.getElementById("input");
-  const send = document.getElementById("send");
-  const responseDiv = document.getElementById("response");
+  const audio = document.getElementById('audioPlayer');
+  const changeSongBtn = document.getElementById('changeSongBtn');
+  const muteBtn = document.getElementById('muteBtn');
 
-  send.onclick = async () => {
-    const message = input.value.trim();
-    if(!message) return;
-    responseDiv.textContent = "Yazıyor...";
+  // Şarkı listesi (buraya başka mp3 dosya isimleri ekleyebilirsin)
+  const songs = ['bio2.mp3', 'bio3.mp3', 'bio4.mp3'];
+  let currentSong = 0;
 
-    try {
-      const res = await fetch("http://localhost:3000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
-      });
-      const data = await res.json();
-      if(res.ok) {
-        responseDiv.textContent = data.reply;
-      } else {
-        responseDiv.textContent = "Hata: " + (data.error || "Bilinmeyen hata");
-      }
-    } catch(e) {
-      responseDiv.textContent = "Sunucuya bağlanılamadı.";
+  changeSongBtn.onclick = () => {
+    currentSong = (currentSong + 1) % songs.length;
+    audio.src = songs[currentSong];
+    audio.play();
+  };
+
+  muteBtn.onclick = () => {
+    if (audio.muted) {
+      audio.muted = false;
+      muteBtn.textContent = 'Ses Kıs';
+    } else {
+      audio.muted = true;
+      muteBtn.textContent = 'Sesi Aç';
     }
   };
 </script>
+
 </body>
 </html>
