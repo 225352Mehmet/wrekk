@@ -3,140 +3,45 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ejderha Sohbet</title>
-<style>
-  body {
-    margin:0;
-    height: 100vh;
-    background: linear-gradient(135deg, #1a237e, #4fc3f7);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e0f7fa;
-    overflow: hidden;
-  }
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 0.2em;
-    text-shadow: 0 0 8px #81d4fa;
-  }
-  #chatContainer {
-    background: rgba(0,0,0,0.4);
-    border-radius: 15px;
-    padding: 20px 30px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0 0 15px #0288d1;
-  }
-  #userInput {
-    width: 80%;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  #sendBtn {
-    padding: 10px 20px;
-    border: none;
-    background: #0288d1;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  #sendBtn:hover {
-    background: #01579b;
-  }
-  #response {
-    margin-top: 15px;
-    font-size: 1.1rem;
-    min-height: 40px;
-  }
-  
-  /* Ejderha & nefes animasyonu */
-
-  .dragon {
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    width: 250px;
-    filter: drop-shadow(0 0 8px #81d4fa);
-    z-index: 0;
-    user-select: none;
-  }
-
-  .breath {
-    position: absolute;
-    bottom: 80px;
-    left: 250px;
-    width: 150px;
-    height: 40px;
-    background: linear-gradient(90deg, #b3e5fc, #81d4fa, #4fc3f7);
-    border-radius: 50% / 100%;
-    opacity: 0.6;
-    filter: blur(8px);
-    animation: breathAnim 2s infinite alternate ease-in-out;
-    transform-origin: left center;
-    z-index: -1;
-  }
-
-  @keyframes breathAnim {
-    0% {
-      width: 0;
-      opacity: 0.6;
-      transform: translateX(0) scaleX(1);
-    }
-    100% {
-      width: 180px;
-      opacity: 0;
-      transform: translateX(40px) scaleX(1.3);
-    }
-  }
-</style>
+<title>ChatGPT ile Sohbet</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body>
+<body style="font-family:sans-serif; padding: 20px; max-width: 600px; margin: auto;">
+<h1>ChatGPT ile Sohbet</h1>
 
-<h1>Ejderha Sohbet</h1>
+<input id="input" type="text" placeholder="Bir şeyler yaz..." style="width:80%; padding: 10px;" />
+<button id="send">Gönder</button>
 
-<div id="chatContainer">
-  <input id="userInput" type="text" placeholder="Merhaba, yaz bakalım..." />
-  <button id="sendBtn">Gönder</button>
-  <div id="response"></div>
-</div>
-
-<!-- Basit ejderha görseli SVG -->
-<svg class="dragon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" >
-  <path fill="#4fc3f7" d="M32 2C18 10 12 20 12 32s6 22 20 30c14-8 20-18 20-30S46 10 32 2z"/>
-  <circle cx="32" cy="32" r="10" fill="#81d4fa"/>
-  <path fill="#b3e5fc" d="M42 22c-3 5-12 8-12 8s9 3 12 8c2-5 2-11 0-16z"/>
-</svg>
-
-<div class="breath"></div>
+<div id="response" style="margin-top: 20px; white-space: pre-wrap;"></div>
 
 <script>
-  const userInput = document.getElementById('userInput');
-  const sendBtn = document.getElementById('sendBtn');
+  const input = document.getElementById('input');
+  const sendBtn = document.getElementById('send');
   const responseDiv = document.getElementById('response');
 
-  sendBtn.addEventListener('click', () => {
-    const text = userInput.value.trim().toLowerCase();
-    if(text === "merhaba nasılsın" || text === "merhaba nasilsin") {
-      responseDiv.textContent = "Teşekkürler, sen nasıl'sın patron Mehmet?";
-    } else if(text) {
-      responseDiv.textContent = "Ejderha seni anlamadı, başka şeyler dene!";
-    } else {
-      responseDiv.textContent = "Lütfen bir şeyler yaz!";
-    }
-    userInput.value = "";
-  });
+  sendBtn.onclick = async () => {
+    const prompt = input.value.trim();
+    if(!prompt) return;
 
-  userInput.addEventListener('keydown', e => {
-    if(e.key === 'Enter') sendBtn.click();
-  });
+    responseDiv.textContent = "Yazıyor...";
+
+    try {
+      const res = await axios.post('https://api.openai.com/v1/chat/completions', {
+        model: "gpt-4o-mini",
+        messages: [{role:"user", content: prompt}]
+      }, {
+        headers: {
+          'Authorization': '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',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const answer = res.data.choices[0].message.content;
+      responseDiv.textContent = answer;
+    } catch(err) {
+      responseDiv.textContent = "Bir hata oldu: " + err.message;
+    }
+  };
 </script>
 
 </body>
