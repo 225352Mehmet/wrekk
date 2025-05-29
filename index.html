@@ -3,46 +3,40 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ChatGPT ile Sohbet</title>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<title>ChatGPT Güvenli Sohbet</title>
 </head>
-<body style="font-family:sans-serif; padding: 20px; max-width: 600px; margin: auto;">
-<h1>ChatGPT ile Sohbet</h1>
-
-<input id="input" type="text" placeholder="Bir şeyler yaz..." style="width:80%; padding: 10px;" />
-<button id="send">Gönder</button>
-
-<div id="response" style="margin-top: 20px; white-space: pre-wrap;"></div>
+<body style="max-width:600px; margin:auto; padding:20px; font-family:sans-serif;">
+  <h1>ChatGPT ile Sohbet</h1>
+  <input id="input" type="text" style="width:80%; padding:10px;" placeholder="Bir şeyler yaz..." />
+  <button id="send">Gönder</button>
+  <div id="response" style="margin-top:20px; white-space:pre-wrap;"></div>
 
 <script>
-  const input = document.getElementById('input');
-  const sendBtn = document.getElementById('send');
-  const responseDiv = document.getElementById('response');
+  const input = document.getElementById("input");
+  const send = document.getElementById("send");
+  const responseDiv = document.getElementById("response");
 
-  sendBtn.onclick = async () => {
-    const prompt = input.value.trim();
-    if(!prompt) return;
-
+  send.onclick = async () => {
+    const message = input.value.trim();
+    if(!message) return;
     responseDiv.textContent = "Yazıyor...";
 
     try {
-      const res = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: "gpt-4o-mini",
-        messages: [{role:"user", content: prompt}]
-      }, {
-        headers: {
-          'Authorization': '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',
-          'Content-Type': 'application/json'
-        }
+      const res = await fetch("http://localhost:3000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
       });
-
-      const answer = res.data.choices[0].message.content;
-      responseDiv.textContent = answer;
-    } catch(err) {
-      responseDiv.textContent = "Bir hata oldu: " + err.message;
+      const data = await res.json();
+      if(res.ok) {
+        responseDiv.textContent = data.reply;
+      } else {
+        responseDiv.textContent = "Hata: " + (data.error || "Bilinmeyen hata");
+      }
+    } catch(e) {
+      responseDiv.textContent = "Sunucuya bağlanılamadı.";
     }
   };
 </script>
-
 </body>
 </html>
