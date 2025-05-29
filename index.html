@@ -40,30 +40,39 @@
     opacity: 0;
     animation: fadeIn 2s forwards;
     animation-delay: 1s;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 30px;
+    margin-top: 30px;
   }
   @keyframes fadeIn {
     to { opacity: 1; }
   }
 
-  /* Foto slider kutusu + oklar */
-  .photo-slider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
+  /* Fotoğraf kutusu */
+  .photo-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  .profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid #555;
+    box-shadow: 0 0 20px #222 inset;
+    transition: opacity 0.5s ease;
   }
 
+  /* Ok butonları fotoğrafın üstünde */
   .arrow-btn {
+    position: absolute;
+    top: -35px;
     background: #222;
     border: none;
     color: #eee;
-    font-size: 2rem;
-    padding: 12px 16px;
+    font-size: 1.8rem;
+    padding: 8px 14px;
     border-radius: 10px;
     cursor: pointer;
     user-select: none;
@@ -74,15 +83,11 @@
     background: #555;
     transform: scale(1.1);
   }
-
-  .profile-pic {
-    width: 180px;
-    height: 180px;
-    border-radius: 20px;
-    object-fit: cover;
-    border: 3px solid #555;
-    box-shadow: 0 0 20px #222 inset;
-    transition: opacity 0.5s ease;
+  .arrow-left {
+    left: 0;
+  }
+  .arrow-right {
+    right: 0;
   }
 
   /* Müzik kontrolleri */
@@ -90,6 +95,7 @@
     display: flex;
     justify-content: center;
     gap: 20px;
+    margin-top: 30px;
   }
   button.music-btn {
     background: #222;
@@ -120,14 +126,12 @@
     }
     .bio-text {
       font-size: 1rem;
-      white-space: normal;
-      overflow: visible;
-      text-overflow: clip;
-      margin-bottom: 20px;
+      margin-top: 20px;
     }
-    .profile-pic {
+    .photo-wrapper {
       width: 140px;
       height: 140px;
+      margin-top: 10px;
     }
   }
 </style>
@@ -137,20 +141,20 @@
 <div class="container">
   <h1>Mehmet'in Özgeçmişi</h1>
 
-  <p class="bio-text">
-    2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, üniversite okumadım.
-  </p>
-
-  <div class="photo-slider">
-    <button class="arrow-btn" id="prevBtn" aria-label="Önceki Fotoğraf">◀️</button>
+  <div class="photo-wrapper">
+    <button class="arrow-btn arrow-left" id="prevBtn" aria-label="Önceki Fotoğraf">◀</button>
     <img src="foto2.jpg" alt="Profil Fotoğrafı" class="profile-pic" id="profilePic" />
-    <button class="arrow-btn" id="nextBtn" aria-label="Sonraki Fotoğraf">▶️</button>
+    <button class="arrow-btn arrow-right" id="nextBtn" aria-label="Sonraki Fotoğraf">▶</button>
   </div>
 
   <div class="music-controls" aria-label="Müzik Kontrolleri">
     <button id="changeSongBtn" class="music-btn" title="Şarkı Değiştir" aria-label="Şarkı Değiştir">🔁</button>
     <button id="muteBtn" class="music-btn" title="Ses Kıs/Aç" aria-label="Ses Kıs veya Aç">🔈</button>
   </div>
+
+  <p class="bio-text">
+    2007 03 02 dünyaya geldim, 2017'den beri web sitesi tasarımı ile ilgileniyorum, Ankara Çankırı'da oturuyorum, Aydınlıkevler Anadolu Lisesi'nde okuyorum, üniversite okumadım.
+  </p>
 
   <audio id="audioPlayer" autoplay loop>
     <source src="bio2.mp3" type="audio/mpeg" />
