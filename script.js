@@ -34,3 +34,9 @@ scarySoundBtn.addEventListener("click", () => {
   scaryAudio.play();
 });
 
+const scarySoundBtn = document.getElementById("scary-sound");
+const scaryAudio = new Audio("assets/bob2.mp3");
+
+scarySoundBtn.addEventListener("click", () => {
+  scaryAudio.play();
+});
