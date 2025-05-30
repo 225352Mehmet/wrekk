@@ -27,3 +27,10 @@ function prevSong() {
   current = (current - 1 + songs.length) % songs.length;
   updateSong();
 }
+const scarySoundBtn = document.getElementById("scary-sound");
+const scaryAudio = new Audio("assets/bob.mp3");
+
+scarySoundBtn.addEventListener("click", () => {
+  scaryAudio.play();
+});
+
