@@ -45,8 +45,80 @@ w
   <script src="script.js"></script>
 </body>
 </html>
-<button id="whatsapp-like-btn" title="Fotoğraf kısmına git" class="whatsapp-btn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#25D366" viewBox="0 0 24 24">
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bio Proje</title>
+<style>
+  /* WhatsApp buton stili */
+  .whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    z-index: 9999;
+  }
+
+  .whatsapp-btn:hover {
+    transform: scale(1.1);
+  }
+
+  /* Fotoğraf bölümü stili */
+  #photo-section {
+    margin: 100px auto;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  #photo-section img {
+    width: 200px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body>
+
+<!-- Diğer içerik -->
+
+<!-- Fotoğrafların olduğu alan -->
+<div id="photo-section">
+  <h2>Fotoğraflarım</h2>
+  <img src="foto1.jpg" alt="Fotoğraf 1" />
+  <img src="foto2.jpg" alt="Fotoğraf 2" />
+  <img src="foto3.jpg" alt="Fotoğraf 3" />
+</div>
+
+<!-- WhatsApp gibi görünen ama sadece scroll yapan buton -->
+<button id="whatsapp-like-btn" title="Fotoğraf kısmına git" class="whatsapp-btn" aria-label="Fotoğraf kısmına git">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#25D366" viewBox="0 0 24 24">
     <path d="M20.52 3.48A11.785 11.785 0 0012 0C5.372 0 0 5.372 0 12a11.926 11.926 0 001.644 6.043L0 24l5.962-1.557A11.92 11.92 0 0012 24c6.627 0 12-5.373 12-12 0-3.194-1.244-6.194-3.48-8.52zm-8.5 17.02a8.95 8.95 0 01-4.579-1.303l-.328-.2-3.54.924.95-3.45-.214-.348A8.95 8.95 0 1135 12a8.95 8.95 0 01-8.98 8.5zm4.75-5.563c-.252-.126-1.488-.734-1.719-.818-.23-.084-.4-.126-.57.126-.17.252-.655.818-.8.986-.146.17-.292.19-.54.063-.25-.126-1.06-.39-2.02-1.244-.75-.666-1.256-1.487-1.4-1.74-.146-.252-.015-.39.11-.516.113-.112.252-.292.38-.44.126-.15.168-.252.252-.42.084-.168.042-.315-.02-.44-.063-.126-.57-1.375-.78-1.877-.206-.49-.415-.423-.57-.43-.146-.007-.315-.008-.48-.008-.164 0-.43.063-.656.315-.23.252-.88.86-.88 2.096 0 1.237.9 2.433 1.025 2.602.126.17 1.774 2.715 4.292 3.808.6.26 1.068.415 1.433.53.6.192 1.146.165 1.58.1.483-.07 1.488-.607 1.7-1.196.21-.59.21-1.096.147-1.197-.063-.1-.23-.168-.48-.294z"/>
   </svg>
 </button>
+
+<script>
+  // Buton tıklayınca fotoğraf bölümüne yumuşak scroll
+  document.getElementById("whatsapp-like-btn").addEventListener("click", () => {
+    const photoSection = document.getElementById("photo-section");
+    if (photoSection) {
+      photoSection.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+</script>
+
+</body>
+</html>
+
