@@ -737,6 +737,49 @@
   </div>
 </section>
 
+<script>
+  document.getElementById("iletisimFormu").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    // 1. Form verilerini topla
+    const formData = {
+      ad: this.elements['Ad Soyad'].value,
+      tel: this.elements['Telefon'].value,
+      email: this.elements['Email'].value,
+      mesaj: this.elements['Mesaj'].value
+    };
+
+    // 2. Telegram mesajını hazırla (HTML formatlı)
+    const telegramMsg = `
+📢 <b>KOÇCODE YENİ MESAJ!</b>
+------------------------
+👤 <b>Ad:</b> ${formData.ad}
+📞 <b>Tel:</b> ${formData.tel}
+✉️ <b>Email:</b> ${formData.email}
+------------------------
+💬 <b>Mesaj:</b>
+${formData.mesaj}
+    `;
+
+    // 3. Telegram'a gönder
+    try {
+      await fetch(`https://api.telegram.org/7814620941:AAHXAc_Xma0GYk6b25dqG2lHMFzjvW0oskw/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: "5767362668", // @RawDataBot'tan alacaksın
+          text: telegramMsg,
+          parse_mode: "HTML"
+        })
+      });
+    } catch (error) {
+      console.error("Telegram hatası:", error);
+    }
+
+    // 4. FormSubmit'e gönderim yap
+    this.submit();
+  });
+</script>
     <!-- FOOTER -->
     <footer>
         <div class="footer-content">
