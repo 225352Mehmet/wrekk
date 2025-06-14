@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoçCode | Profesyonel Web Tasarım Çözümleri</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* HEADER STİLLERİ */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .site-logo {
+            height: 50px;
+            width: auto;
+            transition: all 0.3s;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* HERO STİLLERİ */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+            margin-top: -80px;
+            padding-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* SERVICES STİLLERİ */
+        .services {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto 0;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* PORTFOLIO STİLLERİ */
+        .portfolio {
+            padding: 5rem 5%;
+            background-color: var(--light);
+            text-align: center;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(231, 76, 60, 0.9);
+            color: white;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            bottom: 0;
+        }
+        
+        /* TESTIMONIALS STİLLERİ */
+        .testimonials {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: """;
+            font-family: Georgia, serif;
+            font-size: 5rem;
+            color: var(--light);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            line-height: 1;
+            opacity: 0.3;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        
+        .author-info h4 {
+            margin: 0;
+            color: var(--primary);
+        }
+        
+        .author-info p {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* İLETİŞİM FORM STİLLERİ */
+        .contact-form-section {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e3e6;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+        
+        .submit-btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .form-message {
+            margin-top: 2rem;
+            padding: 1.2rem;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+        }
+        
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        
+        /* FOOTER STİLLERİ */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 5%;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background: var(--secondary);
+            bottom: -8px;
+            left: 0;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        /* ANİMASYONLAR */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* MOBİL UYUMLULUK */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem 5%;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+                margin-top: 1rem;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0;
+                padding: 0.8rem 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 5%;
+                top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="#home" class="logo-link">
+            <img src="logo.png" alt="KoçCode Logo" class="site-logo">
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#services">Hizmetler</a></li>
+                <li><a href="#portfolio">Portfolyo</a></li>
+                <li><a href="#testimonials">Referanslar</a></li>
+                <li><a href="#contact">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <h1>Profesyonel Web Tasarım Çözümleri</h1>
+        <p>İşletmeniz için modern, responsive ve kullanıcı dostu web siteleri tasarlıyoruz. Markanızı dijital dünyada en iyi şekilde temsil ediyoruz.</p>
+        <a href="#contact" class="btn">Ücretsiz Teklif Alın</a>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+        <h2 class="section-title">Hizmetlerimiz</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Web Tasarım</h3>
+                <p>Özgün ve modern web tasarımları ile markanızı öne çıkarıyoruz. Her bütçeye uygun çözümler sunuyoruz.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Responsive Tasarım</h3>
+                <p>Mobil uyumlu web siteleri ile tüm cihazlarda mükemmel kullanıcı deneyimi sağlıyoruz.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-search-dollar"></i>
+                <h3>SEO Optimizasyon</h3>
+                <p>Arama motorlarında üst sıralarda çıkmanız için profesyonel SEO hizmetleri sunuyoruz.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>E-ticaret Çözümleri</h3>
+                <p>Online satışlarınızı artıracak güçlü ve güvenli e-ticaret sistemleri kuruyoruz.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Dijital Pazarlama</h3>
+                <p>Sosyal medya ve dijital reklam kampanyaları ile marka bilinirliğinizi artırıyoruz.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-server"></i>
+                <h3>Hosting Hizmetleri</h3>
+                <p>Hızlı ve güvenli hosting çözümleri ile web sitenizin kesintisiz çalışmasını sağlıyoruz.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Portfolyo</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692" alt="E-ticaret Sitesi">
+                <div class="portfolio-overlay">
+                    <h3>ModaMarkt E-ticaret</h3>
+                    <p>Tamamen özel tasarım e-ticaret sitesi</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt="Kurumsal Web Sitesi">
+                <div class="portfolio-overlay">
+                    <h3>AnkaTeknoloji</h3>
+                    <p>Kurumsal kimlik ve web sitesi tasarımı</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d" alt="Restoran Web Sitesi">
+                <div class="portfolio-overlay">
+                    <h3>Lezzet Durağı</h3>
+                    <p>Restoran için online sipariş sistemi</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" alt="Emlak Sitesi">
+                <div class="portfolio-overlay">
+                    <h3>GoldenEstate</h3>
+                    <p>Emlak portali ve yönetim paneli</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" alt="Spa Merkezi">
+                <div class="portfolio-overlay">
+                    <h3>Relax Spa</h3>
+                    <p>Lüks spa merkezi için web sitesi</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2" alt="Eğitim Platformu">
+                <div class="portfolio-overlay">
+                    <h3>AkademiOnline</h3>
+                    <p>E-öğrenme platformu ve LMS sistemi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">Müşterilerimiz Ne Diyor?</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>KoçCode ile çalıştığımız için çok memnunuz. Web sitemiz tam istediğimiz gibi oldu ve işlerimizde gözle görülür bir artış yaşadık.</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Ayşe Yılmaz">
+                    <div class="author-info">
+                        <h4>Ayşe Yılmaz</h4>
+                        <p>ModaMarkt Kurucusu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>Profesyonel yaklaşımları ve zamanında teslimatları için teşekkür ederiz. Web sitemiz şirket imajımızı tam olarak yansıtıyor.</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mehmet Kaya">
+                    <div class="author-info">
+                        <h4>Mehmet Kaya</h4>
+                        <p>AnkaTeknoloji CEO</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>Online sipariş sistemimiz sayesinde müşterilerimiz çok daha kolay sipariş verebiliyor. KoçCode ekibine teşekkürler!</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Ali Demir">
+                    <div class="author-info">
+                        <h4>Ali Demir</h4>
+                        <p>Lezzet Durağı İşletme Sahibi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM SECTION -->
+    <section class="contact-form-section" id="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Hemen Teklif Alın</h2>
+            
+            <div class="contact-form">
+                <form id="iletisimFormu" action="https://formspree.io/f/mkoc78519@gmail.com" method="POST">
+                    <div class="form-group">
+                        <label for="adsoyad">Adınız Soyadınız</label>
+                        <input type="text" id="adsoyad" name="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefon">Telefon Numaranız</label>
+                        <input type="tel" id="telefon" name="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-posta Adresiniz</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mesaj">Proje Detayları</label>
+                        <textarea id="mesaj" name="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Gönder
+                    </button>
+                    
+                    <div id="formMesaji" class="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>KoçCode</h3>
+                <p>Profesyonel web tasarım ve dijital çözümler sunan bir ajansız. Müşteri memnuniyetini her şeyin üzerinde tutuyoruz.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>İletişim</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Ankara, Türkiye</p>
+                <p><i class="fas fa-phone"></i> +</p>
+                <p><i class="fas fa-envelope"></i> mkoc78519@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Hızlı Menü</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="#home" style="color: white; text-decoration: none;">Ana Sayfa</a></li>
+                    <li><a href="#services" style="color: white; text-decoration: none;">Hizmetler</a></li>
+                    <li><a href="#portfolio" style="color: white; text-decoration: none;">Portfolyo</a></li>
+                    <li><a href="#testimonials" style="color: white; text-decoration: none;">Referanslar</a></li>
+                    <li><a href="#contact" style="color: white; text-decoration: none;">İletişim</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 KoçCode. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobil menü toggle işlevi
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Sayfa yüklendiğinde mobil menüyü kontrol et
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const nav = document.getElementById('mainNav');
+                nav.classList.remove('active');
+                const icon = document.querySelector('.mobile-menu-btn i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Düzgün scroll davranışı için
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Mobil menü açıksa kapat
+                if (window.innerWidth <= 768) {
+                    const nav = document.getElementById('mainNav');
+                    nav.classList.remove('active');
+                    const icon = document.querySelector('.mobile-menu-btn i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+
+        // Form gönderme işlemi
+        document.getElementById('iletisimFormu').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // Butonu yükleme durumuna getir
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gönderiliyor...';
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(form);
+            const formMesaji = document.getElementById('formMesaji');
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    formMesaji.innerHTML = '✅ Mesajınız başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.';
+                    formMesaji.className = 'form-message success';
+                    form.reset();
+                } else {
+                    throw new Error('Form gönderilemedi');
+                }
+            })
+            .catch(error => {
+                formMesaji.innerHTML = '❌ Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya bizi telefonla arayın.';
+                formMesaji.className = 'form-message error';
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                
+                // Mesajı 8 saniye sonra gizle
+                setTimeout(() => {
+                    formMesaji.style.opacity = '0';
+                    setTimeout(() => {
+                        formMesaji.style.display = 'none';
+                        formMesaji.style.opacity = '1';
+                    }, 500);
+                }, 8000);
+            });
+        });
+
+        // Telefon numarası formatlama
+        document.getElementById('telefon').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                value = value.match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                value = (!value[2] ? value[1] : '(' + value[1] + ') ' + value[2] + (value[3] ? '-' + value[3] : ''));
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
