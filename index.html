@@ -763,13 +763,7 @@ ${formData.mesaj}
 
     // 3. Telegram'a gönder
     try {
-      await fetch(`https://api.telegram.org/7814620941:AAHXAc_Xma0GYk6b25dqG2lHMFzjvW0oskw/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: "5767362668", // @RawDataBot'tan alacaksın
-          text: telegramMsg,
-          parse_mode: "HTML"
+    
         })
       });
     } catch (error) {
