@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoçCode Admin</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 1.5rem;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 1rem;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <img src="../logo.png" alt="KoçCode Logo" class="logo">
+        <h2>Admin Girişi</h2>
+        <input type="password" id="password" placeholder="Şifre">
+        <button onclick="girisYap()">Giriş Yap</button>
+    </div>
+
+    <script>
+        function girisYap() {
+            const sifre = "Mehmet123"; // Burayı değiştir!
+            if(document.getElementById("password").value === sifre) {
+                localStorage.setItem("adminAuth", "true");
+                window.location.href = "panel.html";
+            } else {
+                alert("Hatalı şifre!");
+            }
+        }
+    </script>
+</body>
+</html>
